@@ -2,6 +2,7 @@ import telebot
 import cofig
 from telebot import types
 import api_nbrb_curs
+import stavka_ref
 
 bot = telebot.TeleBot(cofig.token)
 
@@ -10,7 +11,7 @@ bot = telebot.TeleBot(cofig.token)
 def send_welcom(message):
     send_text = 'Добро пожаловать! Бот Нацбанка готов к работе :)'
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.row('Курсы Нацбанка', 'Курсы банков')
+    markup.row('Курсы Нацбанка', 'Курсы банков', 'Ставка реф.')
     if message.text == '/start':
         bot.send_message(message.chat.id, send_text, reply_markup=markup)
 
@@ -26,6 +27,8 @@ def all_messages(message):
         bot.send_message(message.chat.id, send_usd_text)
     if message.text == 'Курсы банков':
         bot.send_message(message.chat.id, 'Курс Банков не установлен!!!')
+    if message.text == 'Ставка реф.':
+        bot.send_photo(message.chat.id, stavka_ref.get_sr())
 
     #
     # markup = telebot.types.ReplyKeyboardMarkup()
