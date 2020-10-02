@@ -11,12 +11,12 @@ sr = sr_json[0]['Value'].__str__()
 # sr = sr + ' %'
 
 img = Image.open('png/sr.png')
-data_font = ImageFont.truetype('font/Open_Sans/OpenSans-Regular.ttf', 50)
+data_font = ImageFont.truetype('font/Open_Sans/OpenSans-Regular.ttf', 60)
 sr_font = ImageFont.truetype('font/Open_Sans/OpenSans-Regular.ttf', 350)
 
 img_draw = ImageDraw.Draw(img)
-img_draw.text((520, 333), data, font=data_font, fill=(134, 31, 65))
-img_draw.text((220, 500), sr, font=sr_font, fill=(134, 31, 65))
+img_draw.text((520, 140), data, font=data_font, fill=(153, 0, 51))
+img_draw.text((210, 250), sr, font=sr_font, fill=(134, 31, 65))
 
 
 # img.show()
