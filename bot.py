@@ -26,7 +26,7 @@ def all_messages(message):
     if message.text == 'Курсы Нацбанка':
         bot.send_message(message.chat.id, send_usd_text)
     if message.text == 'Курсы банков':
-        bot.send_message(message.chat.id, 'Курс Банков не установлен!!!')
+        bot.send_message(message.chat.id, '<b>Курсы не установлены</b>', parse_mode='HTML')
     if message.text == 'Ставка реф.':
         bot.send_photo(message.chat.id, stavka_ref.get_sr())
 
