@@ -3,6 +3,7 @@ import cofig
 from telebot import types
 import api_nbrb_curs
 import stavka_ref
+import news_nbrb
 
 bot = telebot.TeleBot(cofig.token)
 
@@ -26,7 +27,7 @@ def all_messages(message):
     if message.text == 'Курсы Нацбанка':
         bot.send_message(message.chat.id, send_usd_text)
     if message.text == 'Курсы банков':
-        bot.send_message(message.chat.id, '<b>Курсы не установлены</b>', parse_mode='HTML')
+        bot.send_message(message.chat.id, news_nbrb.get_news(), parse_mode='HTML', disable_web_page_preview=True)
     if message.text == 'Ставка реф.':
         bot.send_photo(message.chat.id, stavka_ref.get_sr())
 
