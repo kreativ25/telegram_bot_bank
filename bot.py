@@ -4,6 +4,7 @@ from telebot import types
 import api_nbrb_curs
 import stavka_ref
 import news_nbrb
+import analitica
 
 bot = telebot.TeleBot(cofig.token)
 
@@ -12,7 +13,7 @@ bot = telebot.TeleBot(cofig.token)
 def send_welcom(message):
     send_text = 'Добро пожаловать! Бот Нацбанка готов к работе :)'
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    markup.row('Курсы Нацбанка', 'Курсы банков', 'Ставка реф.')
+    markup.row('Курсы Нацбанка', 'Новости Нацбанка', 'Ставка реф.')
     if message.text == '/start':
         bot.send_message(message.chat.id, send_text, reply_markup=markup)
 
@@ -26,10 +27,11 @@ def all_messages(message):
 
     if message.text == 'Курсы Нацбанка':
         bot.send_message(message.chat.id, send_usd_text)
-    if message.text == 'Курсы банков':
+    if message.text == 'Новости Нацбанка':
         bot.send_message(message.chat.id, news_nbrb.get_news(), parse_mode='HTML', disable_web_page_preview=True)
     if message.text == 'Ставка реф.':
-        bot.send_photo(message.chat.id, stavka_ref.get_sr())
+        # bot.send_photo(message.chat.id, stavka_ref.get_sr())
+        bot.send_photo(message.chat.id, analitica.get_plot())
 
     #
     # markup = telebot.types.ReplyKeyboardMarkup()
