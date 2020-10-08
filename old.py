@@ -1,8 +1,7 @@
 import telebot
-import cofig
+from echo import cofig
 from telebot import types
 import api_nbrb_curs
-import stavka_ref
 import news_nbrb
 import analitica
 

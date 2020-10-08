@@ -1,47 +1,83 @@
-import telebot
-import cofig
-from telebot import types
-import api_nbrb_curs
-import stavka_ref
-import news_nbrb
-import analitica
+# import telebot
 
-bot = telebot.TeleBot(cofig.token)
+# from telebot import types
+# import api_nbrb_curs
+# import stavka_ref
+# import news_nbrb
+# import analitica
 
+# bot = telebot.TeleBot(cofig.token)
 
-@bot.message_handler(commands=['start'])
-def send_welcom(message):
-    msg = bot.send_message(message.chat.id, 'Добро пожаловать!')
-    key = types.ReplyKeyboardMarkup(resize_keyboard=True)
-    button_1 = types.KeyboardButton(text='Национальный банк')
-    button_2 = types.KeyboardButton(text='Банки')
-    key.add(button_1, button_2)
-    bot.send_message(message.chat.id, 'Выберете интересующий раздел!', reply_markup=key)
-    bot.register_next_step_handler(msg, name)
+CALLBACK_BUTTON_1_MENU_NB = 'nb_menu'
+CALLBACK_BUTTON_2_MENU_KB = 'kb_menu'
+CALLBACK_BUTTON_STAVKI_NB = 'stavki_nb'
+CALLBACK_BUTTON_CURS_NB = 'curs_nb'
+CALLBACK_BUTTON_LIQ_NB = 'liq_nb'
+CALLBACK_BUTTON_MBK_NB = 'mbk_nb'
+CALLBACK_BUTTON_NEWS_NB = 'news_nb'
+CALLBACK_BUTTON_METALL_NB = 'metall_nb'
+CALLBACK_BUTTON_BACK_NB = 'back_nb'
 
-
-@bot.callback_query_handler(func=lambda message: True)
-def name(message):
-    if message.text == 'Национальный банк':
-        key = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        button_1_1 = types.InlineKeyboardButton(text='Ставки НБ', callback_data='stavki_nb')
-        button_1_2 = types.InlineKeyboardButton(text='Курсы валют НБ', callback_data='curs_nb')
-        button_1_3 = types.InlineKeyboardButton(text='Ликвидность', callback_data='liq_nb')
-        button_1_4 = types.InlineKeyboardButton(text='МБК', callback_data='mbk_nb')
-        button_1_5 = types.InlineKeyboardButton(text='Новости', callback_data='news_nb')
-        button_1_6 = types.InlineKeyboardButton(text='Драг. металлы', callback_data='metall_nb')
-        button_1_7 = types.InlineKeyboardButton(text='Назад', callback_data='back_nb')
-        key.add(button_1_1, button_1_2, button_1_3, button_1_4, button_1_5, button_1_6, button_1_7)
-        bot.send_message(message.chat.id, 'Какая информация вас интересует?', reply_markup=key)
-
-    elif message.data == 'back_nb':
-        key_back = types.ReplyKeyboardMarkup(resize_keyboard=True)
-        button_1_back = types.InlineKeyboardButton(text='Национальный банк', callback_data='nb')
-        button_2_back = types.InlineKeyboardButton(text='Банки', callback_data='banki')
-        key_back.add(button_1_back, button_2_back)
-        bot.edit_message_text(chat_id=message.message.chat.id, message_id=message.message_id, text='sdfs', reply_markup=key_back)
+TITLES = {
+    CALLBACK_BUTTON_1_MENU_NB: 'Национальный банк',
+    CALLBACK_BUTTON_2_MENU_KB: 'Банки',
+    CALLBACK_BUTTON_STAVKI_NB: 'Ставки НБ',
+    CALLBACK_BUTTON_CURS_NB: 'Курсы валют НБ',
+    CALLBACK_BUTTON_LIQ_NB: 'Ликвидность',
+    CALLBACK_BUTTON_MBK_NB: 'МБК',
+    CALLBACK_BUTTON_NEWS_NB: 'Новости',
+    CALLBACK_BUTTON_METALL_NB: 'Драг. металлы',
+    CALLBACK_BUTTON_BACK_NB: '⬅️ Назад'
+}
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#
+#
+# @bot.message_handler(commands=['start'])
+# def send_welcom(call):
+#     msg = bot.send_message(call.chat.id, 'Добро пожаловать!')
+#     key = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#     button_1 = types.InlineKeyboardButton(text='Национальный банк', callback_data=CALLBACK_BUTTON_1_MENU_NB)
+#     button_2 = types.InlineKeyboardButton(text='Банки', callback_data=CALLBACK_BUTTON_2_MENU_KB)
+#     key.add(button_1, button_2)
+#     bot.send_message(call.chat.id, 'Выберете интересующий раздел!', reply_markup=key)
+#     bot.register_next_step_handler(msg, name)
+#
+#
+# @bot.callback_query_handler(func=lambda call_nb: True)
+# def name(call_nb):
+#     if call_nb.text == 'Национальный банк':
+#         key = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#         button_1_1 = types.InlineKeyboardButton(text='Ставки НБ', callback_data=CALLBACK_BUTTON_STAVKI_NB)
+#         button_1_2 = types.InlineKeyboardButton(text='Курсы валют НБ', callback_data=CALLBACK_BUTTON_CURS_NB)
+#         button_1_3 = types.InlineKeyboardButton(text='Ликвидность', callback_data=CALLBACK_BUTTON_LIQ_NB)
+#         button_1_4 = types.InlineKeyboardButton(text='МБК', callback_data=CALLBACK_BUTTON_MBK_NB)
+#         button_1_5 = types.InlineKeyboardButton(text='Новости', callback_data=CALLBACK_BUTTON_NEWS_NB)
+#         button_1_6 = types.InlineKeyboardButton(text='Драг. металлы', callback_data=CALLBACK_BUTTON_METALL_NB)
+#         button_1_7 = types.InlineKeyboardButton(text='⬅️ Назад', callback_data=CALLBACK_BUTTON_BACK_NB)
+#         key.add(button_1_1, button_1_2, button_1_3, button_1_4, button_1_5, button_1_6, button_1_7)
+#         bot.send_message(call_nb.chat.id, 'Какая информация вас интересует?', reply_markup=key)
+#
+#     elif call_nb.data == 'back_nb':
+#         key_back = types.ReplyKeyboardMarkup(resize_keyboard=True)
+#         button_1_back = types.InlineKeyboardButton(text='Национальный банк', callback_data=CALLBACK_BUTTON_1_MENU_NB)
+#         button_2_back = types.InlineKeyboardButton(text='Банки', callback_data=CALLBACK_BUTTON_2_MENU_KB)
+#         key_back.add(button_1_back, button_2_back)
+#         bot.edit_message_text(chat_id=call_nb.message.chat.id, message_id=call_nb.message_id, text='sdfs',
+#                               reply_markup=key_back)
 
 
 #     send_text = 'Добро пожаловать! Бот Нацбанка готов к работе :)'
@@ -67,5 +103,5 @@ def name(message):
 #         bot.send_photo(message.chat.id, analitica.get_plot())
 
 
-if __name__ == '__main__':
-    bot.polling(none_stop=True)
+# if __name__ == '__main__':
+#     bot.polling(none_stop=True)
