@@ -50,6 +50,19 @@ def get_base_menu():
     )
 
 
+def get_menu_nb():
+    keyboard = [
+        [
+            KeyboardButton(TITLES[CALLBACK_BUTTON_STAVKI_NB]),
+            KeyboardButton(TITLES[CALLBACK_BUTTON_CURS_NB])
+        ],
+    ]
+    return ReplyKeyboardMarkup(
+        keyboard=keyboard,
+        resize_keyboard=True
+    )
+
+
 # функция обрабатывает комманду start
 def do_start(update: Update, context: CallbackContext):
     update.message.reply_text(
@@ -61,10 +74,17 @@ def do_start(update: Update, context: CallbackContext):
 # функция обрабатывает все входящие сообщения не КОММАНДЫ
 def do_echo(update: Update, context: CallbackContext):
     chat_id = update.message.chat_id
-    text = update.message.text
-    update.message.reply_text(
-        text='Такой комманды не существует'
-    )
+
+    if update.message.text == TITLES[CALLBACK_BUTTON_1_MENU_NB]:
+        update.message.reply_text(
+            text='Это меню НБ',
+            reply_markup=get_menu_nb()
+        )
+    if update.message.text == TITLES[CALLBACK_BUTTON_2_MENU_KB]:
+        update.message.reply_text(
+            text='Это меню банков',
+            reply_markup=get_base_menu(),
+        )
 
 
 def main():
