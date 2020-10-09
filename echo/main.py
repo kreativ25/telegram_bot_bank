@@ -9,7 +9,8 @@ from telegram.ext import CallbackContext
 from echo.cofig import token
 import echo.menu.button as bt
 import echo.menu.button_nb_sr as menu_sr
-import echo.menu.button_stavki_oper as menu_oper
+import echo.menu.button_stavki_oper as menu_oper_nb
+import echo.menu.button_nb_kurs as menu_kurs_nb
 
 
 # функция обрабатывает комманду start
@@ -67,7 +68,12 @@ def do_echo(update: Update, context: CallbackContext):
     if update.message.text == bt.TITLES_STAVKI_NB[bt.CALLBACK_BUTTON_STAVKI_OPER]:
         update.message.reply_text(
             text='Раздел ставок Национального банка',
-            reply_markup=menu_oper.get_menu_stavki_oper()
+            reply_markup=menu_oper_nb.get_menu_stavki_oper()
+        )
+    if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_CURS_NB]:
+        update.message.reply_text(
+            text='Раздел курсы валют Национального банка',
+            reply_markup=menu_kurs_nb.get_menu_nb_kurs()
         )
 
 
