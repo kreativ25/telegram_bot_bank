@@ -12,94 +12,32 @@ from telegram import KeyboardButton
 from telegram import ReplyKeyboardMarkup
 
 from echo.cofig import token
-
-CALLBACK_BUTTON_MENU_NB = 'nb_menu'
-CALLBACK_BUTTON_MENU_KB = 'kb_menu'
-CALLBACK_BUTTON_STAVKI_NB = 'stavki_nb'
-CALLBACK_BUTTON_CURS_NB = 'curs_nb'
-CALLBACK_BUTTON_LIQ_NB = 'liq_nb'
-CALLBACK_BUTTON_MBK_NB = 'mbk_nb'
-CALLBACK_BUTTON_NEWS_NB = 'news_nb'
-CALLBACK_BUTTON_METALL_NB = 'metall_nb'
-CALLBACK_BUTTON_BACK_NB = 'back_nb'
-
-TITLES_GLOBAL = {
-    CALLBACK_BUTTON_MENU_NB: 'Национальный банк',
-    CALLBACK_BUTTON_MENU_KB: 'Банки',
-}
-
-TITLES_NB = {
-    CALLBACK_BUTTON_STAVKI_NB: 'Ставки НБ',
-    CALLBACK_BUTTON_CURS_NB: 'Курсы валют НБ',
-    CALLBACK_BUTTON_LIQ_NB: 'Ликвидность',
-    CALLBACK_BUTTON_MBK_NB: 'МБК',
-    CALLBACK_BUTTON_NEWS_NB: 'Новости',
-    CALLBACK_BUTTON_METALL_NB: 'Драг. металлы',
-    CALLBACK_BUTTON_BACK_NB: '⬅️ Назад'
-}
-
-
-# главное меню
-def get_base_menu():
-    keyboard = [
-        [
-            KeyboardButton(TITLES_GLOBAL[CALLBACK_BUTTON_MENU_NB]),
-            KeyboardButton(TITLES_GLOBAL[CALLBACK_BUTTON_MENU_KB])
-        ],
-    ]
-    return ReplyKeyboardMarkup(
-        keyboard=keyboard,
-        resize_keyboard=True
-    )
-
-
-# меню Нацбанка
-def get_menu_nb():
-    keyboard = [
-        [
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_STAVKI_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_CURS_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_LIQ_NB])
-        ],
-        [
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_MBK_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_NEWS_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_METALL_NB])
-        ],
-        [
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_BACK_NB])
-        ],
-    ]
-    return ReplyKeyboardMarkup(
-        keyboard=keyboard,
-        resize_keyboard=True
-    )
-
+import echo.button as bt
 
 # функция обрабатывает комманду start
 def do_start(update: Update, context: CallbackContext):
     update.message.reply_text(
         text='Добро пожаловать! :)',
-        reply_markup=get_base_menu(),
+        reply_markup=bt.get_base_menu(),
     )
 
 
 # функция обрабатывает все входящие сообщения не КОММАНДЫ
 def do_echo(update: Update, context: CallbackContext):
-    if update.message.text == TITLES_GLOBAL[CALLBACK_BUTTON_MENU_NB]:
+    if update.message.text == bt.TITLES_GLOBAL[bt.CALLBACK_BUTTON_MENU_NB]:
         update.message.reply_text(
             text='Это меню НБ',
-            reply_markup=get_menu_nb()
+            reply_markup=bt.get_menu_nb()
         )
-    if update.message.text == TITLES_GLOBAL[CALLBACK_BUTTON_MENU_KB]:
+    if update.message.text == bt.TITLES_GLOBAL[bt.CALLBACK_BUTTON_MENU_KB]:
         update.message.reply_text(
             text='Это меню банков',
-            reply_markup=get_base_menu(),
+            reply_markup=bt.get_base_menu(),
         )
-    if update.message.text == TITLES_NB[CALLBACK_BUTTON_BACK_NB]:
+    if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_BACK_NB]:
         update.message.reply_text(
             text='Главное меню',
-            reply_markup=get_base_menu()
+            reply_markup=bt.get_base_menu()
         )
 
         # update.callback_query.edit_message_reply_markup(
