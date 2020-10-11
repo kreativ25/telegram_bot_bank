@@ -5,6 +5,7 @@ from telegram.ext import CommandHandler
 from telegram.ext import MessageHandler
 from telegram.ext import Filters
 from telegram.ext import CallbackContext
+from telegram import ReplyKeyboardMarkup
 
 from echo.cofig import token
 import echo.menu.button as bt
@@ -39,45 +40,50 @@ def do_echo(update: Update, context: CallbackContext):
             reply_markup=bt.get_base_menu()
         )
 
-    if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_STAVKI_NB]:
-        update.message.reply_text(
-            text='Раздел ставки Национального банка',
-            reply_markup=bt.get_menu_stavki_nb()
-        )
 
-    if update.message.text == bt.TITLES_STAVKI_NB[bt.CALLBACK_BUTTON_STAVKI_BACK]:
-        update.message.reply_text(
-            text='Раздел информации Национального банка',
-            reply_markup=bt.get_menu_nb()
-        )
+
+
+
+
+
+
+    #
+    # if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_STAVKI_NB]:
+    #     update.message.reply_text(
+    #         text='Раздел ставки Национального банка',
+    #         reply_markup=bt.get_menu_stavki_nb()
+    #     )
+    #
+    # if update.message.text == bt.TITLES_STAVKI_NB[bt.CALLBACK_BUTTON_STAVKI_BACK]:
+    #     update.message.reply_text(
+    #         text='Раздел информации Национального банка',
+    #         reply_markup=bt.get_menu_nb()
+    #     )
     if update.message.text == bt.TITLES_STAVKI_NB[bt.CALLBACK_BUTTON_STAVKI_SR]:
         update.message.reply_text(
             text='Раздел ставка реф-я НБ',
             reply_markup=menu_sr.get_menu_stavka_sr()
         )
-    if update.message.text == menu_sr.TITLES_STAVKI_NB_SR[menu_sr.CALLBACK_BUTTON_STAVKI_SR_BACK]:
-        update.message.reply_text(
-            text='Раздел ставок НБ',
-            reply_markup=bt.get_menu_stavki_nb()
-        )
-    if update.message.text == menu_sr.TITLES_STAVKI_NB_SR[menu_sr.CALLBACK_BUTTON_STAVKI_SR_BACK_MENU]:
-        update.message.reply_text(
-            text='Раздел информации Национального банка',
-            reply_markup=bt.get_menu_nb()
-        )
-    if update.message.text == bt.TITLES_STAVKI_NB[bt.CALLBACK_BUTTON_STAVKI_OPER]:
-        update.message.reply_text(
-            text='Раздел ставок Национального банка',
-            reply_markup=menu_oper_nb.get_menu_stavki_oper()
-        )
-    if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_CURS_NB]:
-        update.message.reply_text(
-            text='Раздел курсы валют Национального банка',
-            reply_markup=menu_kurs_nb.get_menu_nb_kurs()
-        )
-
-
-
+    # if update.message.text == menu_sr.TITLES_STAVKI_NB_SR[menu_sr.CALLBACK_BUTTON_STAVKI_SR_BACK]:
+    #     update.message.reply_text(
+    #         text='Раздел ставок НБ',
+    #         reply_markup=bt.get_menu_stavki_nb()
+    #     )
+    # if update.message.text == menu_sr.TITLES_STAVKI_NB_SR[menu_sr.CALLBACK_BUTTON_STAVKI_SR_BACK_MENU]:
+    #     update.message.reply_text(
+    #         text='Раздел информации Национального банка',
+    #         reply_markup=bt.get_menu_nb()
+    #     )
+    # if update.message.text == bt.TITLES_STAVKI_NB[bt.CALLBACK_BUTTON_STAVKI_OPER]:
+    #     update.message.reply_text(
+    #         text='Раздел ставок Национального банка',
+    #         reply_markup=menu_oper_nb.get_menu_stavki_oper()
+    #     )
+    # if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_CURS_NB]:
+    #     update.message.reply_text(
+    #         text='Раздел курсы валют Национального банка',
+    #         reply_markup=menu_kurs_nb.get_menu_nb_kurs()
+    #     )
 
         # update.callback_query.edit_message_reply_markup(
         #     chat_id=update.callback_query.message.chat_id,
