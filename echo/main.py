@@ -8,32 +8,37 @@ from telegram.ext import Filters
 from telegram.ext import CallbackContext
 from telegram.ext import CallbackQueryHandler
 from echo.cofig import token
-import echo.button as bt
+
+import echo.menu.button_inline_nb_stavki as bl_nb_stavki
+import echo.menu.button_nb_sr as bl_nb_stavki_sr
+import echo.menu.global_menu as global_menu
+import echo.menu.button_menu_nb as menu_nb
+
 
 # функция обрабатывает комманду start
 def do_start(update: Update, context: CallbackContext):
     update.message.reply_text(
         text='Добро пожаловать! :)',
-        reply_markup=bt.get_base_menu(),
+        reply_markup=global_menu.get_base_menu(),
     )
 
 
 # функция обрабатывает все входящие сообщения не КОММАНДЫ
 def do_echo(update: Update, context: CallbackContext):
-    if update.message.text == bt.TITLES_GLOBAL[bt.CALLBACK_BUTTON_MENU_NB]:
+    if update.message.text == global_menu.TITLES_GLOBAL[global_menu.CALLBACK_BUTTON_MENU_NB]:
         update.message.reply_text(
             text='Это меню НБ',
-            reply_markup=bt.get_menu_nb()
+            reply_markup=menu_nb.get_menu_nb()
         )
-    if update.message.text == bt.TITLES_GLOBAL[bt.CALLBACK_BUTTON_MENU_KB]:
+    if update.message.text == global_menu.TITLES_GLOBAL[global_menu.CALLBACK_BUTTON_MENU_KB]:
         update.message.reply_text(
             text='Это меню банков',
-            reply_markup=bt.get_base_menu(),
+            reply_markup=global_menu.get_base_menu(),
         )
-    if update.message.text == bt.TITLES_NB[bt.CALLBACK_BUTTON_BACK_NB]:
+    if update.message.text == menu_nb.TITLES_NB[menu_nb.CALLBACK_BUTTON_BACK_NB]:
         update.message.reply_text(
             text='Главное меню',
-            reply_markup=bt.get_base_menu()
+            reply_markup=global_menu.get_base_menu()
         )
     if update.message.text == menu_nb.TITLES_NB[menu_nb.CALLBACK_BUTTON_STAVKI_NB]:
         update.message.reply_text(
