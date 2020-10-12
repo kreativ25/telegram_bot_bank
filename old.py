@@ -1,9 +1,8 @@
 import telebot
-from echo import cofig
+from echo import cofig, analitica
 from telebot import types
 import api_nbrb_curs
 import news_nbrb
-import analitica
 
 bot = telebot.TeleBot(cofig.token)
 
