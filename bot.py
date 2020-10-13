@@ -5,7 +5,7 @@ import api_nbrb_curs
 # import echo.stavka_ref as stavka_ref
 import news_nbrb
 import echo.analitica as analitica
-import echo.cofig as cofig
+import echo.config as cofig
 
 bot = telebot.TeleBot(cofig.token)
 
@@ -37,8 +37,10 @@ TITLES = {
 def send_welcom(call):
     msg = bot.send_message(call.chat.id, 'Добро пожаловать!')
     key = types. InlineKeyboardMarkup()
+
     button_1 = types.InlineKeyboardButton(text='Национальный банк', callback_data=CALLBACK_BUTTON_1_MENU_NB)
     button_2 = types.InlineKeyboardButton(text='Банки', callback_data=CALLBACK_BUTTON_2_MENU_KB)
+
     key.add(button_1, button_2)
     bot.send_message(call.chat.id, 'Выберете интересующий раздел!', reply_markup=key)
     bot.register_next_step_handler(msg, name)

@@ -1,18 +1,26 @@
 import telebot
+import echo.config as conf
+from echo.menu.global_menu import get_base_menu as global_menu
+
+bot = telebot.TeleBot(conf.token)
 
 
+@bot.message_handler(commands=['start'])
+def send_welcom(message):
+    # msg = bot.reply_to(
+    #     message,
+    #     text='Добро пожаловать!'
+    # )
+    bot.send_message(
+        message.chat.id,
+        'Добро пожаловать! \n'
+        'Выбирите интересующий раздел!',
+        reply_markup=global_menu()
+    )
 
 
-
-
-
-
-
-
-
-
-
-
+if __name__ == '__main__':
+    bot.polling(none_stop=True)
 
 
 

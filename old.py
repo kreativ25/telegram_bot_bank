@@ -1,10 +1,10 @@
 import telebot
-from echo import cofig, analitica
+from echo import config, analitica
 from telebot import types
 import api_nbrb_curs
 import news_nbrb
 
-bot = telebot.TeleBot(cofig.token)
+bot = telebot.TeleBot(config.token)
 
 
 @bot.message_handler(commands=['start'])
