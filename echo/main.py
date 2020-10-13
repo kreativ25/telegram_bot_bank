@@ -1,7 +1,11 @@
 import telebot
 import echo.config as conf
+
 from echo.menu.global_menu import get_base_menu as global_menu
 from echo.menu.button_menu_nb import get_base_menu as button_menu_nb
+from echo.menu.button_inline_nb_stavki import get_inline_nb_stavki as button_nb_stavki
+from echo.menu.button_nb_sr import get_menu_inline_stavka_sr as button_nb_sr
+from echo.stavka_ref import get_sr as get_sr_1d
 
 bot = telebot.TeleBot(conf.token)
 
@@ -24,11 +28,52 @@ def send_menu_nb(message):
             'Какая информация Вас интересует',
             reply_markup=button_menu_nb()
         )
+    if message.text == '⬅️ Назад':
+        bot.send_message(
+            message.chat.id,
+            'Выбирите интересующий раздел!',
+            reply_markup=global_menu()
+        )
+    if message.text == 'Ставки НБ':
+        bot.send_message(
+            message.chat.id,
+            'Пожалуйста, сделайте выбор',
+            reply_markup=button_nb_stavki()
+        )
+
+
+@bot.callback_query_handler(func=lambda message: True)
+def send_menu_nb_sr(message):
+    if message.data == 'nb_stavki_sr':
+        bot.edit_message_text(
+            text='Пожалуйста, сделайте выбор',
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+            reply_markup=button_nb_sr()
+        )
+    if message.data == 'nb_stavka_sr_back':
+        bot.edit_message_text(
+            text='Пожалуйста, сделайте выбор',
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+            reply_markup=button_nb_stavki()
+        )
+    if message.data == 'nb_stavka_sr_1d':
+        # bot.edit_message_text(
+        #
+        # )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_sr_1d()
+        )
+
+
+# bot.send_photo(message.chat.id, stavka_ref.get_sr())
+# bot.send_photo(message.chat.id, analitica.get_plot())
 
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
-
 
 
 
