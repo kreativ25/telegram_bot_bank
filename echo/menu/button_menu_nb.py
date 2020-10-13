@@ -1,44 +1,27 @@
-from telegram import KeyboardButton
-from telegram import ReplyKeyboardMarkup
-
-CALLBACK_BUTTON_STAVKI_NB = 'stavki_nb'
-CALLBACK_BUTTON_CURS_NB = 'curs_nb'
-CALLBACK_BUTTON_LIQ_NB = 'liq_nb'
-CALLBACK_BUTTON_MBK_NB = 'mbk_nb'
-CALLBACK_BUTTON_NEWS_NB = 'news_nb'
-CALLBACK_BUTTON_METALL_NB = 'metall_nb'
-CALLBACK_BUTTON_BACK_NB = 'back_nb'
+from telebot.types import InlineKeyboardButton, ReplyKeyboardMarkup
 
 
-TITLES_NB = {
-    CALLBACK_BUTTON_STAVKI_NB: 'Ставки НБ',
-    CALLBACK_BUTTON_CURS_NB: 'Курсы валют НБ',
-    CALLBACK_BUTTON_LIQ_NB: 'Ликвидность',
-    CALLBACK_BUTTON_MBK_NB: 'МБК',
-    CALLBACK_BUTTON_NEWS_NB: 'Новости',
-    CALLBACK_BUTTON_METALL_NB: 'Драг. металлы',
-    CALLBACK_BUTTON_BACK_NB: '⬅️ Назад'
-}
+def get_base_menu():
+    markup = ReplyKeyboardMarkup()
+    markup.row_width = 2
+    markup.resize_keyboard = True
 
+    button_stavki_nb = InlineKeyboardButton(text='Ставки НБ', callback_data='stavki_nb')
+    button_curs_nb = InlineKeyboardButton(text='Курсы валют НБ', callback_data='curs_nb')
+    button_liq_nb = InlineKeyboardButton(text='Ликвидность', callback_data='liq_nb')
+    button_mbk_nb = InlineKeyboardButton(text='МБК', callback_data='mbk_nb')
+    button_news_nb = InlineKeyboardButton(text='Новости', callback_data='news_nb')
+    button_matall_nb = InlineKeyboardButton(text='Драг. металлы', callback_data='metall_nb')
+    button_back_nb = InlineKeyboardButton(text='⬅️ Назад', callback_data='back_nb')
 
-# меню Нацбанка
-def get_menu_nb():
-    keyboard = [
-        [
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_STAVKI_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_CURS_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_LIQ_NB])
-        ],
-        [
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_MBK_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_NEWS_NB]),
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_METALL_NB])
-        ],
-        [
-            KeyboardButton(TITLES_NB[CALLBACK_BUTTON_BACK_NB])
-        ],
-    ]
-    return ReplyKeyboardMarkup(
-        keyboard=keyboard,
-        resize_keyboard=True
+    markup.add(
+        button_stavki_nb,
+        button_curs_nb,
+        button_liq_nb,
+        button_mbk_nb,
+        button_news_nb,
+        button_matall_nb,
+        button_back_nb
     )
+
+    return markup

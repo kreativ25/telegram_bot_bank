@@ -1,22 +1,29 @@
 import telebot
 import echo.config as conf
 from echo.menu.global_menu import get_base_menu as global_menu
+from echo.menu.button_menu_nb import get_base_menu as button_menu_nb
 
 bot = telebot.TeleBot(conf.token)
 
 
 @bot.message_handler(commands=['start'])
 def send_welcom(message):
-    # msg = bot.reply_to(
-    #     message,
-    #     text='Добро пожаловать!'
-    # )
     bot.send_message(
         message.chat.id,
-        'Добро пожаловать! \n'
+        'Добро пожаловать! 👋\n'
         'Выбирите интересующий раздел!',
         reply_markup=global_menu()
     )
+
+
+@bot.message_handler(content_types=['text'])
+def send_menu_nb(message):
+    if message.text == 'Национальный банк':
+        bot.send_message(
+            message.chat.id,
+            'Какая информация Вас интересует',
+            reply_markup=button_menu_nb()
+        )
 
 
 if __name__ == '__main__':
