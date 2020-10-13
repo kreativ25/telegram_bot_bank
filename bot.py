@@ -67,7 +67,7 @@ def name(call_nb):
     #                           reply_markup=key_back)
 
     if call_nb.data == 'nb_menu':
-        bot.send_photo( chat_id=call_nb.message.chat.id, photo=analitica.get_plot())
+        bot.send_photo(chat_id=call_nb.message.chat.id, photo=analitica.get_plot())
 
 
     # send_text = 'Добро пожаловать! Бот Нацбанка готов к работе :)'
