@@ -6,11 +6,13 @@ from echo.menu.button_menu_nb import get_base_menu as button_menu_nb
 from echo.menu.button_inline_nb_stavki import get_inline_nb_stavki as button_nb_stavki
 from echo.menu.button_nb_sr import get_menu_inline_stavka_sr as button_nb_sr
 from echo.stavka_ref import get_sr as get_sr_1d
+from echo.menu.button_inline_nb_stavki_back import get_menu_inline_stavka_sr_2 as button_nb_sr_2
 
 bot = telebot.TeleBot(conf.token)
 
 
 @bot.message_handler(commands=['start'])
+# выводим глобальное меню
 def send_welcom(message):
     bot.send_message(
         message.chat.id,
@@ -21,29 +23,31 @@ def send_welcom(message):
 
 
 @bot.message_handler(content_types=['text'])
+# выводим меню НБ
 def send_menu_nb(message):
     if message.text == 'Национальный банк':
         bot.send_message(
-            message.chat.id,
-            'Какая информация Вас интересует',
+            chat_id=message.chat.id,
+            text='Какая информация Вас интересует',
             reply_markup=button_menu_nb()
         )
     if message.text == '⬅️ Назад':
         bot.send_message(
-            message.chat.id,
-            'Выбирите интересующий раздел!',
+            chat_id=message.chat.id,
+            text='Выбирите интересующий раздел!',
             reply_markup=global_menu()
         )
     if message.text == 'Ставки НБ':
         bot.send_message(
-            message.chat.id,
-            'Пожалуйста, сделайте выбор',
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор',
             reply_markup=button_nb_stavki()
         )
 
 
 @bot.callback_query_handler(func=lambda message: True)
 def send_menu_nb_sr(message):
+    # меню ставки СР
     if message.data == 'nb_stavki_sr':
         bot.edit_message_text(
             text='Пожалуйста, сделайте выбор',
@@ -51,6 +55,8 @@ def send_menu_nb_sr(message):
             message_id=message.message.message_id,
             reply_markup=button_nb_sr()
         )
+
+    # кнопка назад в меню ставок НБ
     if message.data == 'nb_stavka_sr_back':
         bot.edit_message_text(
             text='Пожалуйста, сделайте выбор',
@@ -58,18 +64,30 @@ def send_menu_nb_sr(message):
             message_id=message.message.message_id,
             reply_markup=button_nb_stavki()
         )
+
+    # отправляем фото однодневной ставки СР
     if message.data == 'nb_stavka_sr_1d':
-        # bot.edit_message_text(
-        #
-        # )
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=get_sr_1d()
+            photo=get_sr_1d(),
+            reply_markup=button_nb_sr_2()
         )
 
-
-# bot.send_photo(message.chat.id, stavka_ref.get_sr())
-# bot.send_photo(message.chat.id, analitica.get_plot())
+    # возвращаемся в предыдущее инлайн меню, удаляя сообщение
+    if message.data == 'nb_inline_stavka_sr_back':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text='Пожалуйста, сделайте выбор',
+            reply_markup=button_nb_stavki()
+        )
 
 
 if __name__ == '__main__':
