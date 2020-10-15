@@ -1,10 +1,11 @@
-from telebot.types import InlineKeyboardButton, ReplyKeyboardMarkup
+from telebot.types import InlineKeyboardButton, ReplyKeyboardMarkup, ReplyKeyboardRemove
 
 
 def get_base_menu():
     markup = ReplyKeyboardMarkup()
     markup.row_width = 2
     markup.resize_keyboard = True
+    markup.one_time_keyboard = False
 
     button_stavki_nb = InlineKeyboardButton(text='Ставки НБ', callback_data='stavki_nb')
     button_curs_nb = InlineKeyboardButton(text='Курсы валют НБ', callback_data='curs_nb')
@@ -25,3 +26,4 @@ def get_base_menu():
     )
 
     return markup
+
