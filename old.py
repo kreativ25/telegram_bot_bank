@@ -2,7 +2,7 @@ import telebot
 from echo import config, analitica
 from telebot import types
 import api_nbrb_curs
-import news_nbrb
+from echo.nbrb.news import news_nbrb
 
 bot = telebot.TeleBot(config.token)
 

@@ -20,7 +20,7 @@ def send_menu_nb(message):
     if message.text == 'Национальный банк':
         bot.send_message(
             chat_id=message.chat.id,
-            text='Какая информация Вас интересует',
+            text='Какая информация Вас интересует?',
             reply_markup=button_menu_nb()
         )
     if message.text == '⬅️ Назад':
@@ -32,8 +32,14 @@ def send_menu_nb(message):
     if message.text == 'Ставки НБ':
         bot.send_message(
             chat_id=message.chat.id,
-            text='Пожалуйста, сделайте выбор',
+            text='Пожалуйста, сделайте выбор!',
             reply_markup=button_nb_stavki()
+        )
+    if message.text == 'Новости':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор!',
+            reply_markup=button_nb_news()
         )
 
 
@@ -42,7 +48,7 @@ def send_menu_nb_sr(message):
     # меню ставки СР
     if message.data == 'nb_stavki_sr':
         bot.edit_message_text(
-            text='Пожалуйста, сделайте выбор',
+            text='Пожалуйста, сделайте выбор!',
             chat_id=message.message.chat.id,
             message_id=message.message.message_id,
             reply_markup=button_nb_sr()
@@ -51,7 +57,7 @@ def send_menu_nb_sr(message):
     # кнопка назад в меню ставок НБ
     if message.data == 'nb_stavka_sr_back':
         bot.edit_message_text(
-            text='Пожалуйста, сделайте выбор',
+            text='Пожалуйста, сделайте выбор!',
             chat_id=message.message.chat.id,
             message_id=message.message.message_id,
             reply_markup=button_nb_stavki()
@@ -91,6 +97,62 @@ def send_menu_nb_sr(message):
             chat_id=message.message.chat.id,
             photo=button_nb_sr_all(),
             reply_markup=button_nb_sr_2()
+        )
+
+    # отправляем новости НБ - раздел "Новости"
+    if message.data == 'nb_news_news':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=news_nb(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=button_nb_news()
+        )
+
+    # отправляем новости НБ - раздел "Пресс-релизы"
+    if message.data == 'nb_news_press':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=news_press(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=button_nb_news()
+        )
+
+    # отправляем новости НБ - раздел "Аналитика"
+    if message.data == 'nb_news_analitic':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=news_analitic(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=button_nb_news()
+        )
+
+    # отправляем новости НБ - раздел "Статистика"
+    if message.data == 'nb_news_stat':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=news_statistic(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=button_nb_news()
         )
 
 

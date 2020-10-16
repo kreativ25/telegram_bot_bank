@@ -3,7 +3,7 @@ import telebot
 from telebot import types
 import api_nbrb_curs
 # import echo.stavka_ref as stavka_ref
-import news_nbrb
+from echo.nbrb.news import news_nbrb
 import echo.analitica as analitica
 import echo.config as cofig
 
