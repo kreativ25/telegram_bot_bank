@@ -1,6 +1,23 @@
 import requests as rq
 import xlrd
 import datetime as dt
+import pymysql as pm
+import echo.config as cf
+
+# Блок подключения к БД MySQL
+connection = pm.connect(host=cf.host,
+                        user=cf.user,
+                        password=cf.password,
+                        db=cf.db)
+
+
+# запрос к MySQL - максимальная дата
+cur = connection.cursor()
+cur.execute("select max(data_stavki) from stavki_nb_oper")
+max_date_stavki_bd = cur.fetchone()
+connection.commit()
+
+# print(max_date_stavki_bd)
 
 # подключаем экселевский файл
 url_nb_oper = 'http://www.nbrb.by/statistics/monetarypolicyinstruments/interestrates/intratesnbrb_archive.xlsx'
@@ -46,6 +63,27 @@ for row in range(wb_nrows):
                     date_prepare = dt.datetime.date(date_prepare).strftime('%Y.%m.%d')
                     data_stavki.append(date_prepare)
 
+max_date_stavki = dt.datetime.strptime(max(data_stavki), '%Y.%m.%d').date()
+
+
+
+
+# print(type(max_date_stavki_bd[0]))
+# print(type(max_date_stavki))
+
+if max_date_stavki_bd[0] < max_date_stavki:
+    print('dfafadfs')
+
+# time_stamp = dt.datetime.now().date()
+#
+# cur = connection.cursor()
+# cur.execute("INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, time_stamp) VALUES (%s, %s, %s, %s, %s)", (data_stavki[1], kredit_over_stavki[1], depozit_over_stavki[1], dabl_kredit[1], time_stamp))
+# connection.commit()
+
+
+print(type(max(data_stavki)))
+print(type(max_date_stavki_bd))
+print(len(data_stavki))
 
 print(kredit_over_stavki)
 print(depozit_over_stavki)
