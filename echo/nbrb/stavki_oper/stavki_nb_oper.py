@@ -65,27 +65,41 @@ for row in range(wb_nrows):
 
 max_date_stavki = dt.datetime.strptime(max(data_stavki), '%Y.%m.%d').date()
 
-
-
-
 # print(type(max_date_stavki_bd[0]))
 # print(type(max_date_stavki))
 
-if max_date_stavki_bd[0] < max_date_stavki:
-    print('dfafadfs')
 
-# time_stamp = dt.datetime.now().date()
+# проверяем время последнего обновления информации
+cur = connection.cursor()
+cur.execute('select max(ts) as max_ts from stavki_nb_oper')
+max_ts_stavki_nb_mysql = cur.fetchone()
+
+print(max_ts_stavki_nb_mysql[0])
+print(dt.datetime.time(max_ts_stavki_nb_mysql[0]).minute)
+print(dt.datetime.now().minute)
+
+
+
+
+# проверяем есть ли новые ставки
+# if max_date_stavki_bd[0] < max_date_stavki:
+#     print('dfafadfs')
+
+
+#
+# time_stamp = dt.datetime.now()
+# print(time_stamp)
 #
 # cur = connection.cursor()
-# cur.execute("INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, time_stamp) VALUES (%s, %s, %s, %s, %s)", (data_stavki[1], kredit_over_stavki[1], depozit_over_stavki[1], dabl_kredit[1], time_stamp))
+# cur.execute("INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts) VALUES (%s, %s, %s, %s, %s)", (data_stavki[1], kredit_over_stavki[1], depozit_over_stavki[1], dabl_kredit[1], time_stamp))
 # connection.commit()
 
 
-print(type(max(data_stavki)))
-print(type(max_date_stavki_bd))
-print(len(data_stavki))
-
-print(kredit_over_stavki)
-print(depozit_over_stavki)
-print(dabl_kredit)
-print(data_stavki)
+# print(type(max(data_stavki)))
+# print(type(max_date_stavki_bd))
+# print(len(data_stavki))
+#
+# print(kredit_over_stavki)
+# print(depozit_over_stavki)
+# print(dabl_kredit)
+# print(data_stavki)
