@@ -65,41 +65,49 @@ for row in range(wb_nrows):
 
 max_date_stavki = dt.datetime.strptime(max(data_stavki), '%Y.%m.%d').date()
 
-# print(type(max_date_stavki_bd[0]))
-# print(type(max_date_stavki))
-
-
 # проверяем время последнего обновления информации
 cur = connection.cursor()
 cur.execute('select max(ts) as max_ts from stavki_nb_oper')
 max_ts_stavki_nb_mysql = cur.fetchone()
 
-print(max_ts_stavki_nb_mysql[0])
-print(dt.datetime.time(max_ts_stavki_nb_mysql[0]).minute)
-print(dt.datetime.now().minute)
+# получаем список дат в БД MySQL
+cur = connection.cursor()
+cur.execute('select data_stavki as data from stavki_nb_oper')
+date_satavki_nb_mysql = cur.fetchall()
+
+list_date_satavki_nb_mysql = []
+
+for i in date_satavki_nb_mysql:
+    list_date_prepare = dt.datetime.strftime(i[0], '%Y.%m.%d')
+    list_date_satavki_nb_mysql.append(list_date_prepare)
+
+# обновление базы данных MySQL при наличии новых данных на сайте
+time_stamp = dt.datetime.now()
+
+if (dt.datetime.now().minute - dt.datetime.time(max_ts_stavki_nb_mysql[0]).minute) < 10:
+    print('Время меньше 10')
+
+    # проверяем есть ли новые ставки
+    if max_date_stavki_bd[0] < max_date_stavki:
+        print('Есть новые ставки')
+
+        for i in range(len(data_stavki)):
+            for j in list_date_satavki_nb_mysql:
+                if j in data_stavki[i]:
+                    print(j, 'есть такая ставка')
+                else:
+                    print(j, 'нет такой даты - записываем', i)
+                    cur = connection.cursor()
+                    cur.execute(
+                        "INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts) VALUES (%s, %s, %s, %s, %s)",
+                        (data_stavki[i], kredit_over_stavki[i], depozit_over_stavki[i], dabl_kredit[i], time_stamp))
+                    connection.commit()
 
 
 
 
-# проверяем есть ли новые ставки
-# if max_date_stavki_bd[0] < max_date_stavki:
-#     print('dfafadfs')
 
 
-#
-# time_stamp = dt.datetime.now()
-# print(time_stamp)
-#
-# cur = connection.cursor()
-# cur.execute("INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts) VALUES (%s, %s, %s, %s, %s)", (data_stavki[1], kredit_over_stavki[1], depozit_over_stavki[1], dabl_kredit[1], time_stamp))
-# connection.commit()
 
 
-# print(type(max(data_stavki)))
-# print(type(max_date_stavki_bd))
-# print(len(data_stavki))
-#
-# print(kredit_over_stavki)
-# print(depozit_over_stavki)
-# print(dabl_kredit)
-# print(data_stavki)
+
