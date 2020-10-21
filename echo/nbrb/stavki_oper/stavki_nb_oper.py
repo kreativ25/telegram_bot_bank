@@ -82,7 +82,6 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_stavki_nb_mysql[0]).minut
 
     max_date_stavki = dt.datetime.strptime(max(data_stavki), '%Y.%m.%d').date()
 
-    # -----------------------------------------------
     # проверяем есть ли новые ставки
     if max_date_stavki_bd[0] < max_date_stavki:
         print('Есть новые ставки')
@@ -95,6 +94,83 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_stavki_nb_mysql[0]).minut
                     print(j, 'нет такой даты - записываем', i)
                     cur = connection.cursor()
                     cur.execute(
-                        "INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts) VALUES (%s, %s, %s, %s, %s)",
+                        "INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
+                        " VALUES (%s, %s, %s, %s, %s)",
                         (data_stavki[i], kredit_over_stavki[i], depozit_over_stavki[i], dabl_kredit[i], time_stamp))
                     connection.commit()
+
+
+# получаем данные из MySQL для get функций
+cur = connection.cursor()
+cur.execute('select data_stavki as ds, kredit_over as ko, depozit_over as do, dabl_kredit as dk from stavki_nb_oper')
+data_mysql = cur.fetchall()
+
+data_stavki_mysql = []
+kredit_over_stavki_mysql = []
+depozit_over_stavki_mysql = []
+dabl_kredit_mysql = []
+
+
+# выбираем все даты из MySQL
+def get_data_stavki_all():
+    for i in data_mysql:
+        data_stavki_mysql_prepare = dt.datetime.strftime(i[0], '%Y.%m.%d')
+        data_stavki_mysql.append(data_stavki_mysql_prepare)
+
+    return data_stavki_mysql
+
+
+# выбираем последнюю дату изменения ставок в MySQL
+def get_data_stavki_one():
+    data_stavki_one = get_data_stavki_all()
+    data_stavki_one = data_stavki_one[-1]
+
+    return data_stavki_one
+
+
+# список ставок по кредиту овернайт
+def get_kredit_over_stavki():
+    for i in data_mysql:
+        kredit_over_stavki_mysql.append(i[1])
+
+    return kredit_over_stavki_mysql
+
+
+# выбираем последнюю ставку по кредиту овернайт
+def get_kredit_over_stavki_one():
+    kredit_over_stavki_one = get_kredit_over_stavki()
+    kredit_over_stavki_one = kredit_over_stavki_one[-1]
+
+    return kredit_over_stavki_one
+
+
+# список ставок по депозиту овернайт
+def get_depozit_over_stavki():
+    for i in data_mysql:
+        depozit_over_stavki_mysql.append(i[2])
+
+    return depozit_over_stavki_mysql
+
+
+# выбираем последнюю ставку по депозиту овернайт
+def get_depozit_over_stavki_one():
+    depozit_over_stavki_one = get_depozit_over_stavki()
+    depozit_over_stavki_one = depozit_over_stavki_one[-1]
+
+    return depozit_over_stavki_one
+
+
+# список ставок по двусторонним кредитам
+def get_dabl_kredit_stavki():
+    for i in data_mysql:
+        dabl_kredit_mysql.append(i[3])
+
+    return dabl_kredit_mysql
+
+
+# выбираем последнюю ставку по двусторонним кредитам
+def get_dabl_kredit_stavki_one():
+    dabl_kredit_stavki_one = get_dabl_kredit_stavki()
+    dabl_kredit_stavki_one = dabl_kredit_stavki_one[-1]
+
+    return dabl_kredit_stavki_one
