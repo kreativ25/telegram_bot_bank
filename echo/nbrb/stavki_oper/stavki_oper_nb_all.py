@@ -25,8 +25,8 @@ y2 = y2[-date_len:]
 
 # делаем несколько временных рядов
 plt.figure(figsize=(18, 12), dpi=80)
-plt.plot(x, y1, color='tab:red')
-plt.plot(x, y2, color='tab:blue')
+plt.plot(x, y1, color='tab:red', label='Кредиты овернайт')
+plt.plot(x, y2, color='tab:blue', label='Депозиты овернайт')
 
 # размер точек на линии
 plt.scatter(x=x, y=y1, color='tab:red', s=30)
@@ -52,6 +52,7 @@ plt.gca().spines["top"].set_alpha(0.0)
 plt.gca().spines["bottom"].set_alpha(0.3)
 plt.gca().spines["right"].set_alpha(0.0)
 plt.gca().spines["left"].set_alpha(0.3)
+plt.legend(fontsize=18)
 # plt.show()
 
 buf = io.BytesIO()
