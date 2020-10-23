@@ -155,6 +155,51 @@ def send_menu_nb_sr(message):
             reply_markup=button_nb_news()
         )
 
+    # блок кнопок ставок по операциям НБ
+    if message.data == 'nb_stavki_oper':
+        bot.edit_message_text(
+            text='Пожалуйста, сделайте выбор!',
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+            reply_markup=get_menu_inline_stavki_oper_nb()
+        )
+
+    # отправляем фото текущих ставок НБ
+    if message.data == 'nb_stavki_oper_nb_1d':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=stavki_oper_nb_one(),
+            reply_markup=get_menu_inline_stavki_oper_nb()
+        )
+
+    # отправка графика динамики ставок по операциям НБ
+    if message.data == 'nb_satvki_oper_nb_all':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=stavki_oper_nb_all(),
+            reply_markup=get_menu_inline_stavki_oper_nb()
+        )
+
+    # возвращаемся в предыдущее меню ставок НБ, удаляя сообщение
+    if message.data == 'nb_stavki_oper_back':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text='Пожалуйста, сделайте выбор',
+            reply_markup=button_nb_stavki()
+        )
+
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)

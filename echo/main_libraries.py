@@ -16,4 +16,4 @@ from echo.nbrb.news.news_analitica import get_ayalitic as news_analitic
 from echo.nbrb.news.news_statistica import get_statistica as news_statistic
 from echo.nbrb.stavki_oper.stavki_oper_nb_one import get_stavki_oper_one as stavki_oper_nb_one
 from echo.nbrb.stavki_oper.stavki_oper_nb_all import get_plot_stavki_nb_all as stavki_oper_nb_all
-
+from echo.menu.button_inline_stavki_oper_nb import get_menu_inline_stavki_oper_nb as get_menu_inline_stavki_oper_nb

@@ -1,7 +1,7 @@
 from telebot.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
-def get_menu_inline_stavka_sr():
+def get_menu_inline_stavki_oper_nb():
     markup = InlineKeyboardMarkup()
     markup.row_width = 2
 
