@@ -65,7 +65,7 @@ buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=80)
 buf.seek(0)
 im = Image.open(buf)
-im.show()
+# im.show()
 
 
 def get_plot_stavki_nb_all():
