@@ -1,27 +1,33 @@
 import matplotlib.pyplot as plt
+import numpy as np
 import io
 from PIL import Image
 from echo.nbrb.stavki_oper.stavki_nb_oper import *
 
 # устанавливаем количество отображаемых дат/изменений ставок
-date_len = 10
+date_len = 4
 x = get_data_stavki_all()
-x = x[-date_len:]
+x = x[:date_len]
+
 
 # приводим y оси к float формату
+# первый временной ряд
 y1 = get_kredit_over_stavki()
 y1_prepare =[]
 for i in y1:
     y1_prepare.append(float(i))
-y1 = y1_prepare
-y1 = y1[-date_len:]
+y1 = np.array(y1_prepare)
+y1 = y1[:date_len]
 
+
+# второй временной ряд
 y2 = get_depozit_over_stavki()
 y2_prepare = []
 for i in y2:
     y2_prepare.append(float(i))
-y2 = y2_prepare
-y2 = y2[-date_len:]
+y2 = np.array(y2_prepare)
+y2 = y2[:date_len]
+
 
 # делаем несколько временных рядов
 plt.figure(figsize=(18, 12), dpi=80)
@@ -53,7 +59,7 @@ plt.gca().spines["bottom"].set_alpha(0.3)
 plt.gca().spines["right"].set_alpha(0.0)
 plt.gca().spines["left"].set_alpha(0.3)
 plt.legend(fontsize=18)
-# plt.show()
+# # plt.show()
 
 buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=80)
