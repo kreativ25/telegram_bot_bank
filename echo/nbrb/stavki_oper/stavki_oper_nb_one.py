@@ -6,12 +6,10 @@ img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
 
 data = dt.datetime.date(dt.datetime.now()).__str__()
-font_path = pathlib.Path('nbrb/stavki_oper/OpenSans-Regular.ttf').__str__()
+font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
 # font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
 
 name_font = ImageFont.truetype(font_path, 53)
-date_font = ImageFont.truetype(font_path, 45)
-data_font = ImageFont.truetype(font_path, 45)
 stavka_font = ImageFont.truetype(font_path, 80)
 
 name = 'Ставки по операциям Национального банка'
