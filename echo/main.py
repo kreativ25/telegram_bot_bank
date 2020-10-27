@@ -41,6 +41,12 @@ def send_menu_nb(message):
             text='Пожалуйста, сделайте выбор!',
             reply_markup=button_nb_news()
         )
+    if message.text == 'Курсы валют НБ':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор!',
+            reply_markup=kurs_nb_global()
+        )
 
 
 @bot.callback_query_handler(func=lambda message: True)
