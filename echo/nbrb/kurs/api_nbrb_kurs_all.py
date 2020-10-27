@@ -18,4 +18,4 @@ def get_kurs_nb_all(cod_cur, date_end_delta):
     kurs_json = kurs.json()
     return kurs_json
 
-# print(get_kurs_nb_all(kurs_nb_list['usd'], 10))
+# print(get_kurs_nb_all(kurs_nb_list['eur'], 10))
