@@ -4,6 +4,10 @@ import io
 from PIL import Image
 import echo.nbrb.kurs.api_nbrb_kurs_all as api_kurs_nb
 
+# количество подписей на оси х
+tiks = 8
+
+# наименование валют для названия графика
 cod_cur_name = {
     'usd': 'Доллара США',
     'eur': 'Евро',
@@ -11,6 +15,13 @@ cod_cur_name = {
     'uah': 'Гривны',
     'pln': 'Злотого',
 }
+
+
+def get_term(_term):
+    if _term >= tiks:
+        return _term // tiks
+    else:
+        return 1
 
 
 def get_image_kurs_nb_all(cur, term):
@@ -34,11 +45,11 @@ def get_image_kurs_nb_all(cur, term):
     plt.yticks(fontsize=15)
 
     # подпись оси х - делаем разрядность подписей - автоформат
-    plt.xticks(np.arange(1, term, term // 6))
+    plt.xticks(np.arange(1, term, get_term(term)))
     plt.xticks(fontsize=14,)
 
     # название графика
-    plt.title('Динамика ' + cod_cur_name[cur] + '.' + ' Период: ' + str(term) + ' дня(дней).', fontsize=35, pad=45, alpha=1)
+    plt.title('Динамика ' + cod_cur_name[cur] + '.' + ' Период: ' + str(term) + ' дней (дня).', fontsize=35, pad=45, alpha=1)
 
     # Remove borders
     plt.gca().spines["top"].set_alpha(0.0)
@@ -55,4 +66,5 @@ def get_image_kurs_nb_all(cur, term):
 
     return im
 
-get_image_kurs_nb_all('pln', 360)
+
+get_image_kurs_nb_all('usd', 500)
