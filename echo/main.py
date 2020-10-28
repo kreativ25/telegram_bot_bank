@@ -226,8 +226,20 @@ def send_menu_nb_sr(message):
         )
         bot.send_message(
             chat_id=message.message.chat.id,
-            text='Пожалуйста, сделайте выбор',
+            text='Выберите валюту 👇',
             reply_markup=kurs_nb_cur_all()
+        )
+
+    # возвращаемся в предыдущее меню курсов НБ, удаляя сообщение
+    if message.data == 'nb_kurs_nb_back_all':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text='Пожалуйста, сделайте выбор',
+            reply_markup=kurs_nb_global()
         )
 
 if __name__ == '__main__':
