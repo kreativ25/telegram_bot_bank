@@ -242,6 +242,9 @@ def send_menu_nb_sr(message):
             reply_markup=kurs_nb_global()
         )
 
+    
+
+
 if __name__ == '__main__':
     bot.polling(none_stop=True)
 

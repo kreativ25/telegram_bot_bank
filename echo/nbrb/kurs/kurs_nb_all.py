@@ -67,4 +67,4 @@ def get_image_kurs_nb_all(cur, term):
     return im
 
 
-get_image_kurs_nb_all('usd', 105)
+get_image_kurs_nb_all('usd', 350)
