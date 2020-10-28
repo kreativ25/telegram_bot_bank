@@ -19,4 +19,8 @@ from echo.nbrb.stavki_oper.stavki_oper_nb_all import get_plot_stavki_nb_all as s
 from echo.menu.button_inline_stavki_oper_nb import get_menu_inline_stavki_oper_nb as get_menu_inline_stavki_oper_nb
 from echo.menu.button_inline_kurs_nb_global import get_menu_inline_kurs_nb_global as kurs_nb_global
 from echo.nbrb.kurs.kurs_nb_one import get_kurs_nb_one as kurs_nb_one
+
+from echo.nbrb.kurs.kurs_nb_all import get_image_kurs_nb_all as kurs_nb_all
+
 from echo.menu.button_inline_kurs_nb_cur_all import get_menu_inline_kurs_nb_cur_all as kurs_nb_cur_all
+from echo.menu.button_inline_kurs_nb_for_4_cur import get_menu_inline_kurs_nb_for_4_cur as kurs_nb_for_4_cur

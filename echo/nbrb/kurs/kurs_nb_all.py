@@ -5,7 +5,7 @@ from PIL import Image
 import echo.nbrb.kurs.api_nbrb_kurs_all as api_kurs_nb
 
 # количество подписей на оси х
-tiks = 8
+tiks = 6
 
 # наименование валют для названия графика
 cod_cur_name = {
@@ -49,7 +49,7 @@ def get_image_kurs_nb_all(cur, term):
     plt.xticks(fontsize=14,)
 
     # название графика
-    plt.title('Динамика ' + cod_cur_name[cur] + '.' + ' Период: ' + str(term) + ' дней (дня).', fontsize=35, pad=45, alpha=1)
+    plt.title('Динамика ' + cod_cur_name[cur] + '.' + ' Период: ' + str(term) + ' дней.', fontsize=35, pad=45, alpha=1)
 
     # Remove borders
     plt.gca().spines["top"].set_alpha(0.0)
@@ -62,9 +62,11 @@ def get_image_kurs_nb_all(cur, term):
     plt.savefig(buf, format='png', dpi=100)
     buf.seek(0)
     im = Image.open(buf)
-    im.show()
+    # im.show()
 
     return im
 
 
-get_image_kurs_nb_all('usd', 350)
+# get_image_kurs_nb_all('usd', 350)
+
+
