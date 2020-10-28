@@ -206,6 +206,17 @@ def send_menu_nb_sr(message):
             reply_markup=button_nb_stavki()
         )
 
+    # отправляем фото текущих курсов валют НБ
+    if message.data == 'nb_kurs_nb_1d':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=kurs_nb_one(),
+            reply_markup=kurs_nb_global()
+        )
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
