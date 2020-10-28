@@ -339,7 +339,6 @@ def send_menu_nb_sr(message):
             reply_markup=kurs_nb_for_4_cur('usd')
         )
 
-
     # -------------------EUR---------------------
     # показываем меню сроков курсов валют НБ для EUR
     if message.data == 'nb_kurs_nb_eur_all':
@@ -598,14 +597,6 @@ def send_menu_nb_sr(message):
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
-
-
-
-
-
-
-
-
 
 
 
