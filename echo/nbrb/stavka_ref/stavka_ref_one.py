@@ -1,6 +1,7 @@
 from PIL import Image, ImageFont, ImageDraw
 import pathlib
 from echo.nbrb.stavki_oper.stavki_nb_oper import *
+from requests.adapters import HTTPAdapter
 
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
@@ -8,8 +9,14 @@ img_draw = ImageDraw.Draw(img)
 data = dt.datetime.date(dt.datetime.now()).__str__()
 params = {'ondate': data}
 
-sr = rq.get('https://www.nbrb.by/api/refinancingrate', params=params, verify=False)
-sr_json = sr.json()
+# делаем стабильное подключение с реконектом = 7 раз
+url = 'https://www.nbrb.by/api/refinancingrate'
+adapter = HTTPAdapter(max_retries=7)
+with rq.Session() as session:
+    session.mount(url, adapter)
+    response = session.get(url, params=params)
+
+sr_json = response.json()
 sr = sr_json[0]['Value'].__str__()
 
 font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
