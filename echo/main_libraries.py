@@ -23,4 +23,14 @@ from echo.nbrb.kurs.kurs_nb_one import get_kurs_nb_one as kurs_nb_one
 from echo.nbrb.kurs.kurs_nb_all import get_image_kurs_nb_all as kurs_nb_all
 
 from echo.menu.button_inline_kurs_nb_cur_all import get_menu_inline_kurs_nb_cur_all as kurs_nb_cur_all
-from echo.menu.button_inline_kurs_nb_for_4_cur import get_menu_inline_kurs_nb_for_4_cur as kurs_nb_for_4_cur
+
+
+
+
+
+
+
+from echo.nbrb.kurs.kurs_nb_usd_all import get_kurs_nb_usd_all
+from echo.nbrb.kurs.kurs_nb_eur_all import get_kurs_nb_eur_all
+from echo.nbrb.kurs.kurs_nb_rub_all import get_kurs_nb_rub_all
+from echo.nbrb.kurs.kurs_nb_pln_all import get_kurs_nb_pln_all

@@ -242,456 +242,54 @@ def send_menu_nb_sr(message):
             reply_markup=kurs_nb_global()
         )
 
-    # показываем меню сроков курсов валют НБ для USD
+    # отправляем фото динамики курса USD за год
     if message.data == 'nb_kurs_nb_usd_all':
         bot.delete_message(
             chat_id=message.message.chat.id,
             message_id=message.message.message_id,
         )
-        bot.send_message(
+        bot.send_photo(
             chat_id=message.message.chat.id,
-            text='Пожалуйста, выберите период 👇',
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # возвращаемся в предыдущее меню выбора валюты курсов НБ, удаляя сообщение
-    if message.data == 'nb_kurs_nb_cur_back_all':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_message(
-            chat_id=message.message.chat.id,
-            text='Пожалуйста, сделайте выбор',
+            photo=get_kurs_nb_usd_all(),
             reply_markup=kurs_nb_cur_all()
         )
 
-    # -------------------USD---------------------
-    # отправляем фото динамики курса USD за неделю
-    if message.data == 'nb_kurs_1w_usd':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('usd', 7),
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # отправляем фото динамики курса USD за 2 недели
-    if message.data == 'nb_kurs_2w_usd':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('usd', 14),
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # отправляем фото динамики курса USD за 1 месяц
-    if message.data == 'nb_kurs_1m_usd':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('usd', 30),
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # отправляем фото динамики курса USD за 3 месяца
-    if message.data == 'nb_kurs_3m_usd':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('usd', 90),
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # отправляем фото динамики курса USD за 6 месяца
-    if message.data == 'nb_kurs_6m_usd':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('usd', 180),
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # отправляем фото динамики курса USD за 1 год
-    if message.data == 'nb_kurs_12m_usd':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('usd', 365),
-            reply_markup=kurs_nb_for_4_cur('usd')
-        )
-
-    # -------------------EUR---------------------
-    # показываем меню сроков курсов валют НБ для EUR
+    # отправляем фото динамики курса EUR за год
     if message.data == 'nb_kurs_nb_eur_all':
         bot.delete_message(
             chat_id=message.message.chat.id,
             message_id=message.message.message_id,
         )
-        bot.send_message(
-            chat_id=message.message.chat.id,
-            text='Пожалуйста, выберите период 👇',
-            reply_markup=kurs_nb_for_4_cur('eur')
-        )
-
-    # отправляем фото динамики курса EUR за неделю
-    if message.data == 'nb_kurs_1w_eur':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=kurs_nb_all('eur', 7),
-            reply_markup=kurs_nb_for_4_cur('eur')
+            photo=get_kurs_nb_eur_all(),
+            reply_markup=kurs_nb_cur_all()
         )
 
-    # отправляем фото динамики курса EUR за 2 недели
-    if message.data == 'nb_kurs_2w_eur':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('eur', 14),
-            reply_markup=kurs_nb_for_4_cur('eur')
-        )
-
-    # отправляем фото динамики курса EUR за 1 месяц
-    if message.data == 'nb_kurs_1m_eur':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('eur', 30),
-            reply_markup=kurs_nb_for_4_cur('eur')
-        )
-
-    # отправляем фото динамики курса EUR за 3 месяца
-    if message.data == 'nb_kurs_3m_eur':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('eur', 90),
-            reply_markup=kurs_nb_for_4_cur('eur')
-        )
-
-    # отправляем фото динамики курса EUR за 6 месяца
-    if message.data == 'nb_kurs_6m_eur':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('eur', 180),
-            reply_markup=kurs_nb_for_4_cur('eur')
-        )
-
-    # отправляем фото динамики курса EUR за 1 год
-    if message.data == 'nb_kurs_12m_eur':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('eur', 365),
-            reply_markup=kurs_nb_for_4_cur('eur')
-        )
-
-    # -------------------RUB---------------------
-    # показываем меню сроков курсов валют НБ для RUB
+    # отправляем фото динамики курса RUB за год
     if message.data == 'nb_kurs_nb_rub_all':
         bot.delete_message(
             chat_id=message.message.chat.id,
             message_id=message.message.message_id,
         )
-        bot.send_message(
-            chat_id=message.message.chat.id,
-            text='Пожалуйста, выберите период 👇',
-            reply_markup=kurs_nb_for_4_cur('rub')
-        )
-
-    # отправляем фото динамики курса RUB за неделю
-    if message.data == 'nb_kurs_1w_rub':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=kurs_nb_all('rub', 7),
-            reply_markup=kurs_nb_for_4_cur('rub')
+            photo=get_kurs_nb_rub_all(),
+            reply_markup=kurs_nb_cur_all()
         )
 
-    # отправляем фото динамики курса RUB за 2 недели
-    if message.data == 'nb_kurs_2w_rub':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('rub', 14),
-            reply_markup=kurs_nb_for_4_cur('rub')
-        )
-
-    # отправляем фото динамики курса RUB за 1 месяц
-    if message.data == 'nb_kurs_1m_rub':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('rub', 30),
-            reply_markup=kurs_nb_for_4_cur('rub')
-        )
-
-    # отправляем фото динамики курса RUB за 3 месяца
-    if message.data == 'nb_kurs_3m_rub':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('rub', 90),
-            reply_markup=kurs_nb_for_4_cur('rub')
-        )
-
-    # отправляем фото динамики курса RUB за 6 месяца
-    if message.data == 'nb_kurs_6m_rub':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('rub', 180),
-            reply_markup=kurs_nb_for_4_cur('rub')
-        )
-
-    # отправляем фото динамики курса RUB за 1 год
-    if message.data == 'nb_kurs_12m_rub':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('rub', 365),
-            reply_markup=kurs_nb_for_4_cur('rub')
-        )
-
-    # -------------------PLN---------------------
-    # показываем меню сроков курсов валют НБ для PLN
+    # отправляем фото динамики курса PLN за год
     if message.data == 'nb_kurs_nb_pln_all':
         bot.delete_message(
             chat_id=message.message.chat.id,
             message_id=message.message.message_id,
         )
-        bot.send_message(
-            chat_id=message.message.chat.id,
-            text='Пожалуйста, выберите период 👇',
-            reply_markup=kurs_nb_for_4_cur('pln')
-        )
-
-    # отправляем фото динамики курса PLN за неделю
-    if message.data == 'nb_kurs_1w_pln':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=kurs_nb_all('pln', 7),
-            reply_markup=kurs_nb_for_4_cur('pln')
-        )
-
-    # отправляем фото динамики курса PLN за 2 недели
-    if message.data == 'nb_kurs_2w_pln':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('pln', 14),
-            reply_markup=kurs_nb_for_4_cur('pln')
-        )
-
-    # отправляем фото динамики курса PLN за 1 месяц
-    if message.data == 'nb_kurs_1m_pln':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('pln', 30),
-            reply_markup=kurs_nb_for_4_cur('pln')
-        )
-
-    # отправляем фото динамики курса PLN за 3 месяца
-    if message.data == 'nb_kurs_3m_pln':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('pln', 90),
-            reply_markup=kurs_nb_for_4_cur('pln')
-        )
-
-    # отправляем фото динамики курса PLN за 6 месяца
-    if message.data == 'nb_kurs_6m_pln':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('pln', 180),
-            reply_markup=kurs_nb_for_4_cur('pln')
-        )
-
-    # отправляем фото динамики курса PLN за 1 год
-    if message.data == 'nb_kurs_12m_pln':
-        bot.delete_message(
-            chat_id=message.message.chat.id,
-            message_id=message.message.message_id,
-        )
-        bot.send_photo(
-            chat_id=message.message.chat.id,
-            photo=kurs_nb_all('pln', 365),
-            reply_markup=kurs_nb_for_4_cur('pln')
+            photo=get_kurs_nb_pln_all(),
+            reply_markup=kurs_nb_cur_all()
         )
 
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)
-
-
-
-
-
-
-# from telegram import Bot
-# from telegram import Update
-# from telegram import ParseMode
-# from telegram.ext import Updater
-# from telegram.ext import CommandHandler
-# from telegram.ext import MessageHandler
-# from telegram.ext import Filters
-# from telegram.ext import CallbackContext
-# from telegram.ext import CallbackQueryHandler
-# from echo.cofig import token
-#
-# import echo.menu.button_inline_nb_stavki as bl_nb_stavki
-# import echo.menu.button_nb_sr as bl_nb_stavki_sr
-# import echo.menu.global_menu as global_menu
-# import echo.menu.button_menu_nb as menu_nb
-#
-#
-# # функция обрабатывает комманду start
-# def do_start(update: Update, context: CallbackContext):
-#     update.message.reply_text(
-#         text='Добро пожаловать! :)',
-#         reply_markup=global_menu.get_base_menu(),
-#     )
-#
-#
-# # функция обрабатывает все входящие сообщения не КОММАНДЫ
-# def do_echo(update: Update, context: CallbackContext):
-#     if update.message.text == global_menu.TITLES_GLOBAL[global_menu.CALLBACK_BUTTON_MENU_NB]:
-#         update.message.reply_text(
-#             text='Это меню НБ',
-#             reply_markup=menu_nb.get_menu_nb()
-#         )
-#     if update.message.text == global_menu.TITLES_GLOBAL[global_menu.CALLBACK_BUTTON_MENU_KB]:
-#         update.message.reply_text(
-#             text='Это меню банков',
-#             reply_markup=global_menu.get_base_menu(),
-#         )
-#     if update.message.text == menu_nb.TITLES_NB[menu_nb.CALLBACK_BUTTON_BACK_NB]:
-#         update.message.reply_text(
-#             text='Главное меню',
-#             reply_markup=global_menu.get_base_menu()
-#         )
-#     if update.message.text == menu_nb.TITLES_NB[menu_nb.CALLBACK_BUTTON_STAVKI_NB]:
-#         update.message.reply_text(
-#             text='Какая?',
-#             reply_markup=bl_nb_stavki.get_inline_nb_stavki()
-#         )
-#
-#
-# def do_menu(up: Update, context: CallbackContext):
-#     query = up.callback_query
-#     data = query.data
-#     chat_id = up.effective_message.chat_id
-#     current_text = up.effective_message.text
-#
-#     if data == bl_nb_stavki.CALLBACK_BUTTON_STAVKI_SR:
-#         query.edit_message_text(
-#             text=current_text,
-#             parse_mode=ParseMode.MARKDOWN,
-#             reply_markup=bl_nb_stavki_sr.get_menu_inline_stavka_sr(),
-#         )
-#     if data == bl_nb_stavki_sr.CALLBACK_BUTTON_STAVKI_SR_BACK:
-#         query.edit_message_text(
-#             text=current_text,
-#             parse_mode=ParseMode.MARKDOWN,
-#             reply_markup=bl_nb_stavki.get_inline_nb_stavki()
-#         )
-#
-#
-# def main():
-#     bot = Bot(
-#         token=token,
-#     )
-#     updater = Updater(
-#         bot=bot,
-#     )
-#     start_handler = CommandHandler('start', do_start)  # добавляем обработчик комманды start
-#     echo_handler = MessageHandler(Filters.text, do_echo)  # обработчик любых текствоых сообщений - НЕ КОММАНД
-#     buttons_handler = CallbackQueryHandler(callback=do_menu, )
-#
-#     # регистрируем обработчики
-#     updater.dispatcher.add_handler(start_handler)
-#     updater.dispatcher.add_handler(echo_handler)
-#     updater.dispatcher.add_handler(buttons_handler)
-#
-#     # запускаем скачивание обновлений
-#     updater.start_polling()
-#     updater.idle()  # чтобы обработчик не завершался пока не доработают все апдейты
-#
-#
-# if __name__ == '__main__':
-#     main()
