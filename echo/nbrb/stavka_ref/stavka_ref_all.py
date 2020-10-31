@@ -4,10 +4,18 @@ from PIL import Image
 import requests as rq
 import datetime as dt
 from dateutil.parser import *
+from requests.adapters import HTTPAdapter
 
 
-sr = rq.get('https://www.nbrb.by/api/refinancingrate', verify=False)
-sr_json = sr.json()
+# делаем стабильное подключение с реконектом = 7 раз
+url = 'https://www.nbrb.by/api/refinancingrate'
+adapter = HTTPAdapter(max_retries=7)
+with rq.Session() as session:
+    session.mount(url, adapter)
+    response = session.get(url)
+
+
+sr_json = response.json()
 
 date = []
 value = []
