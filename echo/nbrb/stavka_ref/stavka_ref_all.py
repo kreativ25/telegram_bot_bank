@@ -5,6 +5,7 @@ import requests as rq
 import datetime as dt
 from dateutil.parser import *
 
+
 sr = rq.get('https://www.nbrb.by/api/refinancingrate', verify=False)
 sr_json = sr.json()
 
