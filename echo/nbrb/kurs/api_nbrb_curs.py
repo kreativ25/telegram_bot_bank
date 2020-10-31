@@ -1,7 +1,15 @@
 import requests as rq
+from requests.adapters import HTTPAdapter
 
-curs = rq.get('https://www.nbrb.by/api/exrates/rates?periodicity=0', verify=False)
-curs_json = curs.json()
+# делаем стабильное подключение с реконектом = 7 раз
+url = 'https://www.nbrb.by/api/exrates/rates?periodicity=0'
+adapter = HTTPAdapter(max_retries=7)
+with rq.Session() as session:
+    session.mount(url, adapter)
+    response = session.get(url)
+
+
+curs_json = response.json()
 
 kurs_nb = {}
 kurs_nb_list = {
