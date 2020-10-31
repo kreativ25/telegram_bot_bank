@@ -8,7 +8,6 @@ with rq.Session() as session:
     session.mount(url, adapter)
     response = session.get(url)
 
-
 curs_json = response.json()
 
 kurs_nb = {}

@@ -49,7 +49,6 @@ img_draw.text((360, 630), pln, font=date_font, fill=(134, 31, 45))
 img_draw.text((620, 630), str(get_kurs_nb()['pln']), font=kurs_font, fill=(134, 31, 45))
 img_draw.text((360, 690), line, font=line_font, fill=(20, 11, 15))
 
-
 # img.show()
 
 
