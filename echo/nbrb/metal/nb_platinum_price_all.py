@@ -1,4 +1,4 @@
-import requests as rq
+from requests import Session
 from requests.adapters import HTTPAdapter
 import datetime as dt
 import matplotlib.pyplot as plt
@@ -14,7 +14,7 @@ url = f'https://www.nbrb.by/api/bankingots/prices/{kod_metal}?startdate={date_st
 
 # делаем стабильное подключение с реконектом = 7 раз
 adapter = HTTPAdapter(max_retries=7)
-with rq.Session() as session:
+with Session() as session:
     session.mount(url, adapter)
     response = session.get(url)
 
@@ -59,7 +59,7 @@ buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=100)
 buf.seek(0)
 im = Image.open(buf)
-# im.show()
+im.show()
 
 
 def get_nb_platinum_price_all():
