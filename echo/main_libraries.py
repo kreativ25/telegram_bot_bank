@@ -24,3 +24,12 @@ from echo.nbrb.kurs.kurs_nb_usd_all import get_kurs_nb_usd_all
 from echo.nbrb.kurs.kurs_nb_eur_all import get_kurs_nb_eur_all
 from echo.nbrb.kurs.kurs_nb_rub_all import get_kurs_nb_rub_all
 from echo.nbrb.kurs.kurs_nb_pln_all import get_kurs_nb_pln_all
+from echo.menu.button_inline_metal_nb_global import get_menu_inline_metal_nb_global as menu_metal
+from echo.menu.button_inline_metal_nb_name_price import get_menu_inline_metal_nb_price_all as menu_metal_price
+from echo.menu.button_inline_metal_nb_name_ingot import get_menu_inline_metal_nb_ignot_all as menu_metal_ignot
+
+from echo.nbrb.metal.nb_gold_price_all import get_nb_gold_price_all as nb_gold_price
+from echo.nbrb.metal.nb_platinum_price_all import get_nb_platinum_price_all as nb_platinum_price
+from echo.nbrb.metal.nb_silver_price_all import get_nb_silver_price_all as nb_silver_price
+from echo.nbrb.metal.nb_palladium_price_all import get_nb_palladium_price_all as nb_palladium_price
+

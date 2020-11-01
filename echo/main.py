@@ -47,6 +47,12 @@ def send_menu_nb(message):
             text='Пожалуйста, сделайте выбор!',
             reply_markup=kurs_nb_global()
         )
+    if message.text == 'Драг. металлы':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор!',
+            reply_markup=menu_metal()
+        )
 
 
 @bot.callback_query_handler(func=lambda message: True)
@@ -288,6 +294,89 @@ def send_menu_nb_sr(message):
             chat_id=message.message.chat.id,
             photo=get_kurs_nb_pln_all(),
             reply_markup=kurs_nb_cur_all()
+        )
+
+    # список металлов в разделе учетные цены НБ
+    if message.data == 'nb_metal_nb_price':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text='Пожалуйста, сделайте выбор',
+            reply_markup=menu_metal_price()
+        )
+
+    # список металлов в разделе цены на мерные слитки НБ
+    if message.data == 'nb_metal_nb_ingot':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text='Пожалуйста, сделайте выбор',
+            reply_markup=menu_metal_ignot()
+        )
+    # кнопка назад в разделе металлов
+    if message.data == 'nb_metal_nb_back_price_all':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text='Пожалуйста, сделайте выбор',
+            reply_markup=menu_metal()
+        )
+
+    # отправляем фото динамики золота
+    if message.data == 'nb_gold_price':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=nb_gold_price(),
+            reply_markup=menu_metal_price()
+        )
+
+    # отправляем фото динамики серебра
+    if message.data == 'nb_silver_price':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=nb_silver_price(),
+            reply_markup=menu_metal_price()
+        )
+
+    # отправляем фото динамики платины
+    if message.data == 'nb_platinum_price':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=nb_platinum_price(),
+            reply_markup=menu_metal_price()
+        )
+
+    # отправляем фото динамики палладия
+    if message.data == 'nb_palladium_price':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=nb_palladium_price(),
+            reply_markup=menu_metal_price()
         )
 
 
