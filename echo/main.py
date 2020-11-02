@@ -379,6 +379,42 @@ def send_menu_nb_sr(message):
             reply_markup=menu_metal_price()
         )
 
+    # отправляем фото цен золотых мерных слитков
+    if message.data == 'nb_gold_ignot':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_gold_ignot(),
+            reply_markup=menu_metal_ignot()
+        )
+
+    # отправляем фото цен серебренных мерных слитков
+    if message.data == 'nb_silver_ignot':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_silver_ignot(),
+            reply_markup=menu_metal_ignot()
+        )
+
+    # отправляем фото цен платиновых мерных слитков
+    if message.data == 'nb_platinum_ignot':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_platinum_ignot(),
+            reply_markup=menu_metal_ignot()
+        )
+
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)

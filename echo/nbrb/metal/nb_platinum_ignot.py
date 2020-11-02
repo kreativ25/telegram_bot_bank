@@ -5,7 +5,7 @@ from PIL import Image, ImageFont, ImageDraw
 import pathlib
 
 date = dt.datetime.date(dt.datetime.now()).__str__()
-kod_metal = 0
+kod_metal = 2
 url = f'https://www.nbrb.by/api/ingots/prices/{kod_metal}?ondate={date}'
 
 # делаем стабильное подключение с реконектом = 7 раз
@@ -24,13 +24,13 @@ data = dt.datetime.date(dt.datetime.now()).__str__()
 font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
 # font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
 
-name_font = ImageFont.truetype(font_path, 67)
+name_font = ImageFont.truetype(font_path, 60)
 date_font = ImageFont.truetype(font_path, 53)
 title_font = ImageFont.truetype(font_path, 40)
 price_font = ImageFont.truetype(font_path, 30)
 line_font = ImageFont.truetype(font_path, 10)
 
-name = 'Цены на ЗОЛОТЫЕ мерные слитки'
+name = 'Цены на ПЛАТИНОВЫЕ мерные слитки'
 date = 'на дату:'
 nominal = 'номинал'
 pokupka = 'покупка, руб.'
@@ -64,5 +64,5 @@ for i in range(len(metal_data)):
 # img.show()
 
 
-def get_gold_ignot():
+def get_platinum_ignot():
     return img

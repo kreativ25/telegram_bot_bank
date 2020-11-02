@@ -46,7 +46,7 @@ plt.xticks(np.arange(1, term, term // tiks))
 plt.xticks(fontsize=14,)
 
 # название графика
-plt.title('Динамика ' + metal_name + ' - ' + str(term) + ' дней. Текущая цена - ' + str(y_day[0]) + ' рублей', fontsize=35, pad=45, alpha=1)
+plt.title('Динамика ' + metal_name + ' - ' + str(term) + ' дней. Текущая цена (1 г.) - ' + str(y_day[0]) + ' руб.', fontsize=35, pad=45, alpha=1)
 
 # Remove borders
 plt.gca().spines["top"].set_alpha(0.0)
@@ -59,7 +59,7 @@ buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=100)
 buf.seek(0)
 im = Image.open(buf)
-im.show()
+# im.show()
 
 
 def get_nb_platinum_price_all():

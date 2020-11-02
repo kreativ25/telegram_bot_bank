@@ -33,3 +33,6 @@ from echo.nbrb.metal.nb_platinum_price_all import get_nb_platinum_price_all as n
 from echo.nbrb.metal.nb_silver_price_all import get_nb_silver_price_all as nb_silver_price
 from echo.nbrb.metal.nb_palladium_price_all import get_nb_palladium_price_all as nb_palladium_price
 
+from echo.nbrb.metal.nb_gold_ignot import get_gold_ignot
+from echo.nbrb.metal.nb_silver_ignot import get_silver_ignot
+from echo.nbrb.metal.nb_platinum_ignot import get_platinum_ignot
