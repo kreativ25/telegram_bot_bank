@@ -85,24 +85,20 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_stavki_nb_mysql[0]).minut
     # проверяем есть ли новые ставки
     if max_date_stavki_bd[0] < max_date_stavki:
         print('Есть новые ставки')
-
-        for i in range(len(data_stavki)):
-            for j in list_date_satavki_nb_mysql:
-                if j in data_stavki[i]:
-                    print(j, 'есть такая ставка')
-                else:
-                    print(j, 'нет такой даты - записываем', i)
-                    cur = connection.cursor()
-                    cur.execute(
-                        "INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
-                        " VALUES (%s, %s, %s, %s, %s)",
-                        (data_stavki[i], kredit_over_stavki[i], depozit_over_stavki[i], dabl_kredit[i], time_stamp))
-                    connection.commit()
-
-
-print(data_stavki)
-print(list_date_satavki_nb_mysql)
-
+        x = -1
+        for i in data_stavki:
+            if i in list_date_satavki_nb_mysql:
+                x = x+1
+                print(x, i, ' присутствует')
+            else:
+                x = x + 1
+                print(x, i, ' NO')
+                cur = connection.cursor()
+                cur.execute(
+                    "INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
+                    " VALUES (%s, %s, %s, %s, %s)",
+                    (data_stavki[x], kredit_over_stavki[x], depozit_over_stavki[x], dabl_kredit[x], time_stamp))
+                connection.commit()
 
 
 # получаем данные из MySQL для get функций
