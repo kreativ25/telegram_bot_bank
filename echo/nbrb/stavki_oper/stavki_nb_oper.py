@@ -100,6 +100,11 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_stavki_nb_mysql[0]).minut
                     connection.commit()
 
 
+print(data_stavki)
+print(list_date_satavki_nb_mysql)
+
+
+
 # получаем данные из MySQL для get функций
 cur = connection.cursor()
 cur.execute('select data_stavki as ds, kredit_over as ko, depozit_over as do, dabl_kredit as dk from stavki_nb_oper')
