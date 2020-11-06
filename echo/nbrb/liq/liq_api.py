@@ -18,27 +18,27 @@ cur = connection.cursor()
 cur.execute("select max(date) from liq")
 max_date_mysql = cur.fetchone()
 connection.commit()
-print('1) ', max_date_mysql, '<-- максимальная дата Mysql')
+# print('1) ', max_date_mysql, '<-- максимальная дата Mysql')
 
 
 # проверяем время последнего обновления информации
 cur = connection.cursor()
 cur.execute('select max(time_stamp) as max_ts from liq')
 max_ts_mysql = cur.fetchone()
-print('2) ', max_ts_mysql, '<-- max time_stamp Mysql')
+# print('2) ', max_ts_mysql, '<-- max time_stamp Mysql')
 
 
 # получаем список дат в БД MySQL
 cur = connection.cursor()
 cur.execute('select date as date_mysql from liq')
 date_list_mysql = cur.fetchall()
-print('3)  список дат mysql -->', date_list_mysql)
+# print('3)  список дат mysql -->', date_list_mysql)
 
 list_date_mysql = []
 for i in date_list_mysql:
     list_date_prepare = dt.datetime.strftime(i[0], '%Y.%m.%d')
     list_date_mysql.append(list_date_prepare)
-print('4)  список дат mysql  -->', list_date_mysql)
+# print('4)  список дат mysql  -->', list_date_mysql)
 
 
 # обновление базы данных MySQL при наличии новых данных на сайте
@@ -118,15 +118,32 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_mysql[0]).minute) > 10:
                 connection.commit()
 
 
+# получаем данные из MySQL для get функций
+cur = connection.cursor()
+cur.execute('select date as _date, liq as _liq, prt as _prt, psi as _psi from liq ORDER BY date')
+data_mysql = cur.fetchall()
+
+date_liq_mysql = []
+liq_mysql = []
+prt_mysql = []
+psi_mysql = []
 
 
+# выбираем все даты из MySQL
+def get_date_liq_all():
+    for i in data_mysql:
+        date_liq_mysql_prepare = dt.datetime.strftime(i[0], '%Y.%m.%d')
+        date_liq_mysql.append(date_liq_mysql_prepare)
+
+    return date_liq_mysql
 
 
+# список значений ликвидности
+def get_liq_all():
+    for i in data_mysql:
+        liq_mysql.append(i[1])
 
-
-
-
-
+    return liq_mysql
 
 # cur = connection.cursor()
 # cur.execute("INSERT INTO liq (date, liq, prt, psi, time_stamp) VALUES (%s, %s, %s, %s, %s)",
