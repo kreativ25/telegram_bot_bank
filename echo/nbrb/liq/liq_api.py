@@ -145,6 +145,24 @@ def get_liq_all():
 
     return liq_mysql
 
+
+# возвращаем данные на последнюю дату в MySQL
+def get_liq_data_old():
+    return data_mysql[-1]
+
+
+def get_liq_delta():
+    liq_delta = {
+        'liq': int(float(data_mysql[-1][1]) - float(data_mysql[-2][1])),
+        'prt': int(float(data_mysql[-1][2]) - float(data_mysql[-2][2])),
+        'psi': int(float(data_mysql[-1][3]) - float(data_mysql[-2][3])),
+
+    }
+    return liq_delta
+
+
+
+
 # cur = connection.cursor()
 # cur.execute("INSERT INTO liq (date, liq, prt, psi, time_stamp) VALUES (%s, %s, %s, %s, %s)",
 #             (date_liq[0], liq[0], prt[0], psi[0], time_stamp))

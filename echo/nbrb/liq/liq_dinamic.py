@@ -1,6 +1,3 @@
-import requests as rq
-from requests.adapters import HTTPAdapter
-import datetime as dt
 import matplotlib.pyplot as plt
 import numpy as np
 import io
@@ -39,7 +36,7 @@ plt.xticks(np.arange(1, date_len, date_len // tiks))
 plt.xticks(fontsize=14)
 
 # название графика
-plt.title('Динамика  ликвидности банковской системы, млн. руб.', fontsize=35, pad=45, alpha=1)
+plt.title('Динамика ликвидности банковской системы, млн. руб. Период - ' + str(date_len) + ' дней.', fontsize=30, pad=45, alpha=1)
 
 # Remove borders
 plt.gca().spines["top"].set_alpha(0.0)
@@ -49,13 +46,17 @@ plt.gca().spines["left"].set_alpha(0.3)
 
 # ось х по центру графика
 plt.gca().spines['bottom'].set_position(('data', 0))
+plt.gca().spines['bottom'].set_linewidth(3)
+plt.gca().spines['bottom'].set_color('green')
+
+plt.rcParams.update({'font.size': 28})
 
 # преобразуем в png
 buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=100)
 buf.seek(0)
 im = Image.open(buf)
-im.show()
+# im.show()
 
 
 def get_liq_all():
