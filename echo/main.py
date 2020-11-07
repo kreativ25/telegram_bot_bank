@@ -53,6 +53,12 @@ def send_menu_nb(message):
             text='Пожалуйста, сделайте выбор!',
             reply_markup=menu_metal()
         )
+    if message.text == 'Ликвидность':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор!',
+            reply_markup=get_inline_nb_liq()
+        )
 
 
 @bot.callback_query_handler(func=lambda message: True)
@@ -415,6 +421,29 @@ def send_menu_nb_sr(message):
             reply_markup=menu_metal_ignot()
         )
 
+    # отправка графика динамики ликвидности
+    if message.data == 'nb_liq_dinamiq':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_liq_all(),
+            reply_markup=get_inline_nb_liq()
+        )
+
+    # отправка текущей ликвидности
+    if message.data == 'nb_liq':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_img_liq_one(),
+            reply_markup=get_inline_nb_liq()
+        )
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)

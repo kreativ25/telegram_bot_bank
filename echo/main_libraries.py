@@ -36,3 +36,7 @@ from echo.nbrb.metal.nb_palladium_price_all import get_nb_palladium_price_all as
 from echo.nbrb.metal.nb_gold_ignot import get_gold_ignot
 from echo.nbrb.metal.nb_silver_ignot import get_silver_ignot
 from echo.nbrb.metal.nb_platinum_ignot import get_platinum_ignot
+
+from echo.menu.button_liq_nb import get_inline_nb_liq
+from echo.nbrb.liq.liq_dinamic import get_liq_all
+from echo.nbrb.liq.liq_one import get_img_liq_one
