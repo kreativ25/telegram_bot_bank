@@ -5,8 +5,31 @@ import re
 import datetime as dt
 import pymysql as pm
 import echo.config as cf
-
 from bs4 import BeautifulSoup
+
+
+date_satrt = dt.date(2019, 10, 1)
+# date_satrt = date_satrt + + dt.timedelta(days=1)
+
+
+# Блок подключения к БД MySQL
+connection = pm.connect(host=cf.host,
+                        user=cf.user,
+                        password=cf.password,
+                        db=cf.db)
+
+# запрос к MySQL - максимальная дата
+# mbk = connection.cursor()
+# mbk.execute("select max(date) from mbk")
+# max_date_mbk_bd = mbk.fetchone()
+# connection.commit()
+
+
+# проверяем время последнего обновления информации
+# time_bd = connection.cursor()
+# time_bd.execute('select max(ts) as max_ts from stavki_nb_oper')
+# max_ts_mbk = time_bd.fetchone()
+
 
 url = 'https://www.nbrb.by/statistics/financialmarkets/interbankrates'
 
@@ -20,7 +43,7 @@ adapter = HTTPAdapter(max_retries=7)
 with Session() as session:
     session.mount(url, adapter)
     response = session.post(url,
-                            data={'date': '06.11.2020'},
+                            data={'date': str(date_satrt)},
                             headers=headers
                             )
 
@@ -55,5 +78,19 @@ mm = date_len(date_prepare_[0][12][10:-5])
 date = yy + '.' + mm + '.' + dd
 date = dt.datetime.strptime(date, '%Y.%m.%d').date()
 
+time_stamp = dt.datetime.now()
+data_mbk = {
+    'date': date,
+    'mbk_sum': mbk_sum,
+    'mbk_stavka': mbk_stavka
+}
 
 
+mbk = connection.cursor()
+mbk.execute(
+    "INSERT INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
+    " VALUES (%s, %s, %s, %s)",
+    (data_mbk['date'], data_mbk['mbk_sum'], data_mbk['mbk_stavka'], time_stamp))
+connection.commit()
+
+print('записано')
