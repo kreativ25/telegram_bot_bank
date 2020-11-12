@@ -8,7 +8,7 @@ import echo.config as cf
 from bs4 import BeautifulSoup
 
 
-date_satrt = dt.date(2019, 10, 1)
+date_satrt = dt.date(2019, 10, 15)
 # date_satrt = date_satrt + + dt.timedelta(days=1)
 
 
@@ -23,13 +23,6 @@ connection = pm.connect(host=cf.host,
 # mbk.execute("select max(date) from mbk")
 # max_date_mbk_bd = mbk.fetchone()
 # connection.commit()
-
-
-# проверяем время последнего обновления информации
-# time_bd = connection.cursor()
-# time_bd.execute('select max(ts) as max_ts from stavki_nb_oper')
-# max_ts_mbk = time_bd.fetchone()
-
 
 url = 'https://www.nbrb.by/statistics/financialmarkets/interbankrates'
 
@@ -85,12 +78,38 @@ data_mbk = {
     'mbk_stavka': mbk_stavka
 }
 
+# запись спарсеных данных в MySQL
+# mbk = connection.cursor()
+# mbk.execute(
+#     "INSERT INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
+#     " VALUES (%s, %s, %s, %s)",
+#     (data_mbk['date'], data_mbk['mbk_sum'], data_mbk['mbk_stavka'], time_stamp))
+# connection.commit()
+#
+# print('Новые данные МБК записаны в MySQL')
 
-mbk = connection.cursor()
-mbk.execute(
-    "INSERT INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
-    " VALUES (%s, %s, %s, %s)",
-    (data_mbk['date'], data_mbk['mbk_sum'], data_mbk['mbk_stavka'], time_stamp))
-connection.commit()
 
-print('записано')
+# обновление последней даты записи time_stamp
+# mbk = connection.cursor()
+# mbk.execute(
+#     "UPDATE mbk SET time_stamp = %s  order by date(date) desc limit 1",
+#     time_stamp)
+# connection.commit()
+#
+# print('time_stamp максимальной даты МБК обновлен!')
+
+
+
+
+# расчет времени последнего подключения к сайту
+# mbk_max_ts = connection.cursor()
+# mbk_max_ts.execute(
+#     "select max(time_stamp) as max_ts from mbk")
+# mbk_max_ts = mbk_max_ts.fetchone()
+# connection.commit()
+#
+# print('максимальная ts БД: ', mbk_max_ts[0])
+#
+# diff = time_stamp - mbk_max_ts[0]
+# delta_hours = int(diff.seconds // (60*60))
+# delta_mins = int((diff.seconds // 60) % 60)
