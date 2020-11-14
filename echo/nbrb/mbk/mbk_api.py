@@ -6,7 +6,6 @@ import datetime as dt
 import pymysql as pm
 import echo.config as cf
 from bs4 import BeautifulSoup
-from dateutil import relativedelta
 
 date = dt.datetime.now().date()
 date_yesterday = dt.datetime.now().date() - dt.timedelta(days=1)
@@ -87,7 +86,7 @@ if date_yesterday > max_date_mbk_bd[0][0]:
 
     print('-- В БД последние данные меньше вчерашней даты')
 
-    if int((time_stamp - max_date_mbk_bd[0][3]).seconds // (60 * 60)) > 1:
+    if int((time_stamp - max_date_mbk_bd[0][3]).seconds // (60 * 60)) < 1:
         print('-- Прошло больше 1 часа с момента последнего подключения к сайту НБ')
         print('-- делаем запрос на к сайту НБ')
 
@@ -105,10 +104,9 @@ if date_yesterday > max_date_mbk_bd[0][0]:
             print('-- На сайте есть новые данные  - записываем в БД')
 
             # разница в датах
-            delta = relativedelta.relativedelta(date_yesterday, max_date_mbk_bd[0][0]).days
+            delta = (date_yesterday - max_date_mbk_bd[0][0]).days
             print('-- В БД надо записать данные за', delta, 'дней')
 
-            # for i in range(150):
             for i in range(delta):
                 _i = i + 1
                 data_record = max_date_mbk_bd[0][0] + dt.timedelta(days=_i)
