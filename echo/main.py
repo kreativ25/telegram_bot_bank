@@ -60,6 +60,13 @@ def send_menu_nb(message):
             reply_markup=get_inline_nb_liq()
         )
 
+    if message.text == 'МБК':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор!',
+            reply_markup=get_inline_nb_mbk()
+        )
+
 
 @bot.callback_query_handler(func=lambda message: True)
 def send_menu_nb_sr(message):
@@ -444,6 +451,30 @@ def send_menu_nb_sr(message):
             photo=get_img_liq_one(),
             reply_markup=get_inline_nb_liq()
         )
+
+    # отправка текущей ставки МБК
+    if message.data == 'button_mbk':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_img_mbk_one(),
+            reply_markup=get_inline_nb_mbk()
+        )
+    # отправка динамики МБК
+    if message.data == 'button_mbk_dinamiq':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=get_mbk_all(),
+            reply_markup=get_inline_nb_mbk()
+        )
+
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)

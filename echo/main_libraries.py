@@ -40,3 +40,7 @@ from echo.nbrb.metal.nb_platinum_ignot import get_platinum_ignot
 from echo.menu.button_liq_nb import get_inline_nb_liq
 from echo.nbrb.liq.liq_dinamic import get_liq_all
 from echo.nbrb.liq.liq_one import get_img_liq_one
+
+from echo.menu.button_mbk_global import get_inline_nb_mbk
+from echo.nbrb.mbk.mbk_all import get_mbk_all
+from echo.nbrb.mbk.mbk_one import get_img_mbk_one

@@ -11,7 +11,7 @@ font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
 
 name_font = ImageFont.truetype(font_path, 85)
 date_font = ImageFont.truetype(font_path, 53)
-percent_font = ImageFont.truetype(font_path, 180)
+percent_font = ImageFont.truetype(font_path, 170)
 sum_font = ImageFont.truetype(font_path, 70)
 no_font = ImageFont.truetype(font_path, 90)
 
@@ -47,7 +47,7 @@ img_draw.text(
 )
 
 # ставка и объем
-if int(get_mbk_one()[0][1]) != 0:
+if str(get_mbk_one()[0][2]) != 0:
     img_draw.text(
         (120, 350),
         persent,
@@ -58,7 +58,7 @@ if int(get_mbk_one()[0][1]) != 0:
 
     img_draw.text(
         (520, 260),
-        str(get_mbk_one()[0][1]) + ' %',
+        str(get_mbk_one()[0][2]) + ' %',
         font=percent_font,
         fill=(134, 31, 45),
 
@@ -74,7 +74,7 @@ if int(get_mbk_one()[0][1]) != 0:
 
     img_draw.text(
         (520, 530),
-        str(get_mbk_one()[0][2]) + ' тыс. руб.',
+        str(get_mbk_one()[0][1]) + ' тыс. руб.',
         font=sum_font,
         fill=(134, 31, 45),
 
@@ -88,7 +88,7 @@ else:
         fill=(134, 31, 45),
     )
 
-img.show()
+# img.show()
 
 
 def get_img_mbk_one():
