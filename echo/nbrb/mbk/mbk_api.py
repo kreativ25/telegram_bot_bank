@@ -175,7 +175,7 @@ def get_mbk_one():
 
 def get_mbk_all(date_limit):
     mbk_all = connection.cursor()
-    mbk_all.execute(f"select date, mbk_sum, mbk_stavka, time_stamp from mbk order by date(date) desc limit {date_limit}")
+    mbk_all.execute(f"select date, mbk_sum, mbk_stavka, time_stamp from mbk WHERE mbk_sum <> 0 order by date(date) desc limit {date_limit} ")
     mbk_all_bd = mbk_all.fetchall()
     connection.commit()
 
