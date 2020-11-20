@@ -40,14 +40,3 @@ curs.execute(
     " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
     (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp))
 connection.commit()
-
-
-# # обновление данных
-# mbk_up_date = connection.cursor()
-# mbk_up_date.execute(
-#     "UPDATE curs SET date = %s, bank_id = %s, bank_name = %s, usd_in = %s, usd_out = %s, eur_in = %s, eur_out = %s, rub_in = %s, rub_out = %s, time_stamp = %s",
-#     date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp)
-# connection.commit()
-
-
-# "UPDATE mbk SET time_stamp = %s  order by date(date) desc limit 1",
