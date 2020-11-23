@@ -21,6 +21,7 @@ from echo.menu.button_inline_kurs_nb_global import get_menu_inline_kurs_nb_globa
 from echo.nbrb.kurs.kurs_nb_one import get_kurs_nb_one as kurs_nb_one
 from echo.menu.button_inline_kurs_nb_cur_all import get_menu_inline_kurs_nb_cur_all as kurs_nb_cur_all
 from echo.menu.button_inline_bank_global import get_base_menu_kb
+from echo.menu.button_inline_bank_kurs import get_menu_inline_kurs_kb
 
 
 from echo.nbrb.kurs.kurs_nb_usd_all import get_kurs_nb_usd_all
