@@ -23,6 +23,12 @@ def send_menu_nb(message):
             text='Какая информация Вас интересует?',
             reply_markup=button_menu_nb()
         )
+    if message.text == 'Банки':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Какая информация Вас интересует?',
+            reply_markup=get_base_menu_kb()
+        )
     if message.text == '⬅️ Назад':
         bot.send_message(
             chat_id=message.chat.id,
