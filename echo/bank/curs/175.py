@@ -32,7 +32,7 @@ for i in root:
         'out': i.find('sell_amount').text
     }
 
-print(data_all_prepare)
+# print(data_all_prepare)
 
 for i in range(len(data_all_prepare))[:3]:
     if data_all_prepare[i]['name'] == 'USD':
@@ -51,7 +51,7 @@ for i in range(len(data_all_prepare))[:3]:
             'rub_out': float(data_all_prepare[i]['out'])*100
         }
 
-print(data_all)
+# print(data_all)
 
 
 date = dt.datetime.date(dt.datetime.now()).__str__()

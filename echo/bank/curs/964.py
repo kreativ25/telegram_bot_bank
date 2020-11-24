@@ -21,17 +21,22 @@ data_all = {}
 root = tree.iter('Currency')
 
 for i in root:
-    for x in i.findall(".//Name/..[@Id='1500887']"):
-        data_all[0] = {'usd_in': x.find('RateBuy').text}
-        data_all[1] = {'usd_out': x.find('RateSell').text}
+    len_num = 6
+    if i.find('NumCode').text == '840':
+        if len(data_all) < len_num:
+            data_all[0] = {'usd_in': i.find('RateBuy').text}
+            data_all[1] = {'usd_out': i.find('RateSell').text}
 
-    for x in i.findall(".//Name/..[@Id='1500881']"):
-        data_all[2] = {'eur_in': x.find('RateBuy').text}
-        data_all[3] = {'eur_out': x.find('RateSell').text}
+    if i.find('NumCode').text == '978':
+        if len(data_all) < len_num:
+            data_all[2] = {'eur_in': i.find('RateBuy').text}
+            data_all[3] = {'eur_out': i.find('RateSell').text}
 
-    for x in i.findall(".//Name/..[@Id='1500884']"):
-        data_all[4] = {'rub_in': x.find('RateBuy').text}
-        data_all[5] = {'rub_out': x.find('RateSell').text}
+    if i.find('NumCode').text == '643':
+        if len(data_all) < len_num:
+            data_all[4] = {'rub_in': i.find('RateBuy').text}
+            data_all[5] = {'rub_out': i.find('RateSell').text}
+
 
 date = dt.datetime.date(dt.datetime.now()).__str__()
 bank_id = 964

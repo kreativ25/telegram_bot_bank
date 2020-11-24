@@ -488,6 +488,40 @@ def send_menu_nb_sr(message):
             reply_markup=get_inline_nb_mbk()
         )
 
+    # отправка текущих курсов банков  - Доллар США
+    if message.data == 'kurs_kb_usd':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=curs('usd_in', 'usd_out'),
+            reply_markup=get_menu_inline_kurs_kb()
+        )
+
+    # отправка текущих курсов банков  - Евро
+    if message.data == 'kurs_nb_eur':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=curs('eur_in', 'eur_out'),
+            reply_markup=get_menu_inline_kurs_kb()
+        )
+    # отправка текущих курсов банков  - Российские рубли
+    if message.data == 'kurs_kb_rub':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_photo(
+            chat_id=message.message.chat.id,
+            photo=curs('rub_in', 'rub_out'),
+            reply_markup=get_menu_inline_kurs_kb()
+        )
 
 if __name__ == '__main__':
     bot.polling(none_stop=True)

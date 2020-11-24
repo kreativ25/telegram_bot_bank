@@ -10,13 +10,10 @@ def get_menu_inline_kurs_kb():
 
     kurs_kb_rub = InlineKeyboardButton(text='🇷🇺 RUB', callback_data='kurs_kb_rub')
 
-    kurs_kb_back = InlineKeyboardButton(text='⬅️ Назад', callback_data='kurs_kb_back')
-
     markup.add(
         kurs_kb_usd,
         kurs_nb_eur,
         kurs_kb_rub,
-        kurs_kb_back,
 
     )
 
