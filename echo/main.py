@@ -1,6 +1,9 @@
 from echo.main_libraries import *
-import matplotlib
+
 bot = telebot.TeleBot(conf.token)
+from echo.nbrb.kurs.api_nbrb_curs import get_kurs_nb
+
+import re
 
 
 @bot.message_handler(commands=['start'])
@@ -79,6 +82,35 @@ def send_menu_nb(message):
             text='Пожалуйста, сделайте выбор!',
             reply_markup=get_menu_inline_kurs_kb()
         )
+
+
+
+
+
+
+    if message.text:
+        bot.send_message(
+            chat_id=message.chat.id,
+            text=converter(message.text),
+            # reply_markup=button_menu_nb()
+        )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 @bot.callback_query_handler(func=lambda message: True)

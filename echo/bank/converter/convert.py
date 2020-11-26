@@ -3,7 +3,7 @@ from echo.nbrb.kurs.api_nbrb_curs import get_kurs_nb
 
 # print(get_kurs_nb()['usd'])
 
-text = '100 sdffssdfsdfsusdдол'
+text = '10 sdffssdfsdfsusdдол'
 
 # res = re.search(r'\d+', text) #числа
 # res = re.search(r'usd', text) #слова
@@ -18,16 +18,33 @@ def converter(re_text):
 
     res = re.search(r'usd', re_text)
     res_2 = re.search(r'дол', re_text)
-    res_nam = float(re.search(r'\d+', text).group(0))
+    # res_nam = float(re.search(r'\d+', re_text).group(0))
+
+    res_nam = re.search(r'\d+', re_text)
+    if res_nam:
+        res_num_2 = res_nam.group(0)
 
     if res is not None or res_2 is not None:
-        print('да')
-        print(int(res_nam), 'долларов')
-        print(int(usd * res_nam), 'рублей')
-        print(int((usd * res_nam)/eur), 'евро')
-        print(int(((usd * res_nam) / rub)*100), 'рос руб')
+        result = str((usd * float(res_num_2))) + ' рублей'
+
+    return result
 
 
-    return re_text
 
-converter(text)
+
+
+
+
+        # print('да')
+        # print(int(res_nam), 'долларов')
+        # print(int(usd * res_nam), 'рублей')
+        # print(int((usd * res_nam)/eur), 'евро')
+        # print(int(((usd * res_nam) / rub)*100), 'рос руб')
+
+    # return '<b>' + 'Новости Национального банка:</b> \n'
+    #     ret = str(int(res_nam))+ ' долларов'
+
+# print(converter(text))
+
+# news_text = '<b>Новости Национального банка:</b> \n'
+

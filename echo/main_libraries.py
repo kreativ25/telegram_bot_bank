@@ -50,3 +50,4 @@ from echo.nbrb.mbk.mbk_all import get_mbk_all
 from echo.nbrb.mbk.mbk_one import get_img_mbk_one
 
 from echo.bank.curs_get_png.curs_kb import curs
+from echo.bank.converter.convert import converter
