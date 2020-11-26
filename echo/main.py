@@ -86,16 +86,15 @@ def send_menu_nb(message):
 
 
 
-
-
-    if message.text:
+# конвертер
+    if converter(message.text):
         bot.send_message(
             chat_id=message.chat.id,
+            parse_mode='HTML',
+            disable_web_page_preview=True,
             text=converter(message.text),
-            # reply_markup=button_menu_nb()
+
         )
-
-
 
 
 
