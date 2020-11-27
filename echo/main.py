@@ -83,10 +83,7 @@ def send_menu_nb(message):
             reply_markup=get_menu_inline_kurs_kb()
         )
 
-
-
-
-# конвертер
+    # конвертер валют
     if converter(message.text):
         bot.send_message(
             chat_id=message.chat.id,
@@ -95,21 +92,6 @@ def send_menu_nb(message):
             text=converter(message.text),
 
         )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 @bot.callback_query_handler(func=lambda message: True)
