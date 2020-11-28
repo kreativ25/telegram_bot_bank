@@ -1,31 +1,27 @@
 import matplotlib.pyplot as plt
 import io
 from PIL import Image
-import requests as rq
-import datetime as dt
-from dateutil.parser import *
-from requests.adapters import HTTPAdapter
+import pymysql as pm
+import echo.config as cf
 
+# получаем максимальную дату БД
+connection = pm.connect(host=cf.host,
+                        user=cf.user,
+                        password=cf.password,
+                        db=cf.db)
 
-# делаем стабильное подключение с реконектом = 7 раз
-url = 'https://www.nbrb.by/api/refinancingrate'
-adapter = HTTPAdapter(max_retries=7)
-with rq.Session() as session:
-    session.mount(url, adapter)
-    response = session.get(url)
-
-
-sr_json = response.json()
+sr_all = connection.cursor()
+sr_all.execute("select date, sr from sr_all")
+date_bd = sr_all.fetchall()
+connection.commit()
 
 date = []
 value = []
+for i in range(len(date_bd)):
+    date.append(date_bd[i][0])
+    value.append(float(date_bd[i][1]))
 
-for i in sr_json:
-    date_prepare = parse(i['Date'])
-    date.append(dt.datetime.date(date_prepare).strftime('%Y.%m.%d'))
-    value.append(i['Value'])
-
-date_len = 10
+date_len = 20
 date = date[-date_len:]
 value = value[-date_len:]
 
@@ -33,7 +29,7 @@ plt.figure(figsize=(16, 12), dpi=80)
 plt.plot(date, value, color='tab:red')
 
 # размер точек на линии
-plt.scatter(x=date, y=value, color='tab:red', s=30)
+plt.scatter(x=date, y=value, color='tab:red', s=15)
 
 # подпись оси у
 plt.yticks(fontsize=20, alpha=.5)
@@ -47,7 +43,7 @@ plt.title('Динамика ставки рефинансирования', font
 # подписи точек
 plt.grid(axis='both', alpha=.5)
 for i in range(date_len):
-    plt.text(date[i], value[i], value[i], horizontalalignment='left', fontsize=45, alpha=1)
+    plt.text(date[i], value[i], value[i], horizontalalignment='left', fontsize=15, alpha=1)
 
 # Remove borders
 plt.gca().spines["top"].set_alpha(0.0)
@@ -55,7 +51,6 @@ plt.gca().spines["bottom"].set_alpha(0.3)
 plt.gca().spines["right"].set_alpha(0.0)
 plt.gca().spines["left"].set_alpha(0.3)
 # plt.show()
-
 
 buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=80)
