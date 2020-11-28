@@ -536,5 +536,13 @@ def send_menu_nb_sr(message):
             reply_markup=get_menu_inline_kurs_kb()
         )
 
+
 if __name__ == '__main__':
-    bot.polling(none_stop=True)
+    # infinity_polling(True) нужен для обхода падения бота путем перезапуска его
+    bot.infinity_polling(none_stop=True, timeout=120)
+
+    # bot.polling(
+    #     none_stop=True,
+    #     timeout=60
+    #
+    # )
