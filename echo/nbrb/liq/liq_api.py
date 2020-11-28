@@ -113,7 +113,7 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_mysql[0]).minute) > 10:
                 x = x + 1
                 print(x, i, ' NO')
                 cur = connection.cursor()
-                cur.execute("INSERT INTO liq (date, liq, prt, psi, time_stamp) VALUES (%s, %s, %s, %s, %s)",
+                cur.execute("INSERT LOW_PRIORITY INTO liq (date, liq, prt, psi, time_stamp) VALUES (%s, %s, %s, %s, %s)",
                             (date_liq[x], liq[x], prt[x], psi[x], time_stamp))
                 connection.commit()
 

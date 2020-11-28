@@ -27,7 +27,7 @@ if sr_value is not None:
     sr = connection.cursor()
     sr.execute('truncate table sr_one')
     sr.execute(
-        "INSERT INTO sr_one (date, sr, time_stamp)"
+        "INSERT HIGH_PRIORITY INTO sr_one (date, sr, time_stamp)"
         " VALUES (%s, %s, %s)",
         (data, sr_value, time_stamp))
     connection.commit()

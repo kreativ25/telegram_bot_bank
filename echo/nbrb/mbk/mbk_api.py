@@ -127,7 +127,7 @@ if date_yesterday > max_date_mbk_bd[0][0]:
                     # запись спарсеных данных в MySQL
                     mbk_pars = connection.cursor()
                     mbk_pars.execute(
-                        "INSERT INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
+                        "INSERT LOW_PRIORITY INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
                         " VALUES (%s, %s, %s, %s)",
                         (get_data_mbk['date'], get_data_mbk['mbk_sum'], get_data_mbk['mbk_stavka'], time_stamp))
                     connection.commit()

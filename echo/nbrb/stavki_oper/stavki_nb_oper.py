@@ -95,7 +95,7 @@ if (dt.datetime.now().minute - dt.datetime.time(max_ts_stavki_nb_mysql[0]).minut
                 print(x, i, ' NO')
                 cur = connection.cursor()
                 cur.execute(
-                    "INSERT INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
+                    "INSERT LOW_PRIORITY INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
                     " VALUES (%s, %s, %s, %s, %s)",
                     (data_stavki[x], kredit_over_stavki[x], depozit_over_stavki[x], dabl_kredit[x], time_stamp))
                 connection.commit()

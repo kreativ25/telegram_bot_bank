@@ -87,9 +87,9 @@ connection = pm.connect(host=cf.host,
 
 # запись данных в MySQL
 curs = connection.cursor()
-curs.execute('delete from curs where bank_id = 175')
+curs.execute('delete LOW_PRIORITY from curs where bank_id = 175')
 curs.execute(
-    "INSERT INTO curs (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp)"
+    "INSERT LOW_PRIORITY INTO curs (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp)"
     " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
     (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp))
 connection.commit()
