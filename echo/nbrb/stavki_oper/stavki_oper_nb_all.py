@@ -5,20 +5,18 @@ from PIL import Image
 from echo.nbrb.stavki_oper.stavki_nb_oper import *
 
 # устанавливаем количество отображаемых дат/изменений ставок
-date_len = 4
+date_len = 20
 x = get_data_stavki_all()
-x = x[:date_len]
-
+x = x[-date_len:]
 
 # приводим y оси к float формату
 # первый временной ряд
 y1 = get_kredit_over_stavki()
-y1_prepare =[]
+y1_prepare = []
 for i in y1:
     y1_prepare.append(float(i))
 y1 = np.array(y1_prepare)
-y1 = y1[:date_len]
-
+y1 = y1[-date_len:]
 
 # второй временной ряд
 y2 = get_depozit_over_stavki()
@@ -26,8 +24,7 @@ y2_prepare = []
 for i in y2:
     y2_prepare.append(float(i))
 y2 = np.array(y2_prepare)
-y2 = y2[:date_len]
-
+y2 = y2[-date_len:]
 
 # делаем несколько временных рядов
 plt.figure(figsize=(18, 12), dpi=80)
@@ -50,8 +47,8 @@ plt.title('Динамика ставок по операциям НБ', fontsize
 # подписи точек
 plt.grid(axis='both', alpha=.5)
 for i in range(len(x)):
-    plt.text(x[i], y1[i], y1[i], horizontalalignment='left', fontsize=25, alpha=1)
-    plt.text(x[i], y2[i], y2[i], horizontalalignment='left', fontsize=25, alpha=1)
+    plt.text(x[i], y1[i], y1[i], horizontalalignment='left', fontsize=15, alpha=1)
+    plt.text(x[i], y2[i], y2[i], horizontalalignment='left', fontsize=15, alpha=1)
 
 # Remove borders
 plt.gca().spines["top"].set_alpha(0.0)

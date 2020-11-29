@@ -31,6 +31,7 @@ img_draw.text((620, 423), get_dabl_kredit_stavki_one() + ' %', font=stavka_font,
 img_draw.text((20, 600), depozit_over, font=name_font, fill=(134, 31, 45))
 img_draw.text((620, 573), get_depozit_over_stavki_one() + ' %', font=stavka_font, fill=(134, 31, 45))
 
+# img.show()
 
 def get_stavki_oper_one():
     return img
