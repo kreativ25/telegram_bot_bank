@@ -120,7 +120,7 @@ img_draw.text(
 )
 img_draw.text(
     (800, 350),
-    znak(get_liq_delta()['liq']) + str(_null(get_liq_delta()['liq'])),
+    znak(get_liq_delta()['liq']) + str(_null(abs(get_liq_delta()['liq']))),
     font=title_font,
     fill=(134, 31, 45),
 
@@ -157,7 +157,7 @@ img_draw.text(
 )
 img_draw.text(
     (800, 450),
-    znak(get_liq_delta()['prt']) + str(_null(get_liq_delta()['prt'])),
+    znak(get_liq_delta()['prt']) + str(_null(abs(get_liq_delta()['prt']))),
     font=title_font,
     fill=(134, 31, 45),
 
@@ -187,7 +187,7 @@ img_draw.text(
 )
 img_draw.text(
     (800, 650),
-    znak(get_liq_delta()['psi']) + str(_null(get_liq_delta()['psi'])),
+    znak(get_liq_delta()['psi']) + str(_null(abs(get_liq_delta()['psi']))),
     font=title_font,
     fill=(134, 31, 45),
 
