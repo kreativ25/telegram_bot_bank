@@ -22,7 +22,7 @@ psi_mysql = []
 # выбираем все даты из MySQL
 def get_date_liq_all():
     for i in data_mysql:
-        date_liq_mysql_prepare = dt.datetime.strftime(i[0], '%Y.%m.%d')
+        date_liq_mysql_prepare = dt.datetime.strptime(dt.datetime.strftime(i[0], '%Y.%m.%d'), '%Y.%m.%d').date()
         date_liq_mysql.append(date_liq_mysql_prepare)
 
     return date_liq_mysql

@@ -4,10 +4,8 @@ import io
 from PIL import Image
 from echo.nbrb.liq.liq_api import get_liq_all, get_date_liq_all
 
-tiks = 8
-
 # устанавливаем количество отображаемых дат
-date_len = 210
+date_len = 360
 
 # ось х
 x = get_date_liq_all()
@@ -32,8 +30,7 @@ plt.scatter(x=x, y=y, color='tab:red', s=10)
 plt.yticks(fontsize=30)
 
 # подпись оси х - делаем разрядность подписей - автоформат
-plt.xticks(np.arange(1, date_len, date_len // tiks))
-plt.xticks(fontsize=14)
+plt.xticks(fontsize=14, alpha=.5, rotation=90)
 
 # название графика
 plt.title('Динамика ликвидности банковской системы, млн. руб. Период - ' + str(date_len) + ' дней.', fontsize=30, pad=45, alpha=1)
@@ -56,7 +53,7 @@ buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=100)
 buf.seek(0)
 im = Image.open(buf)
-# im.show()
+im.show()
 
 
 def get_liq_all():
