@@ -53,7 +53,7 @@ buf = io.BytesIO()
 plt.savefig(buf, format='png', dpi=100)
 buf.seek(0)
 im = Image.open(buf)
-im.show()
+# im.show()
 
 
 def get_liq_all():
