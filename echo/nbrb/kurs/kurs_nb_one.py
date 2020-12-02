@@ -1,8 +1,7 @@
 from PIL import Image, ImageFont, ImageDraw
 import pathlib
-# from echo.nbrb.kurs.api_nbrb_curs import *
-
 from echo.nbrb.kurs.get_func_curs import *
+
 
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
@@ -52,6 +51,7 @@ img_draw.text((620, 630), str(curs_nb_one(max_date_curs_nb())['pln']), font=kurs
 img_draw.text((360, 690), line, font=line_font, fill=(20, 11, 15))
 
 # img.show()
+
 
 def get_kurs_nb_one():
     return img

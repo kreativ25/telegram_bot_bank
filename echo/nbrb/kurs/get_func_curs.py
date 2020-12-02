@@ -45,6 +45,3 @@ def curs_nb_all(cur_type, max_date_curs_nb, term):
     connection.commit()
 
     return data_curs
-
-
-# print(curs_nb_all('usd', max_date_curs_nb(), 2))
