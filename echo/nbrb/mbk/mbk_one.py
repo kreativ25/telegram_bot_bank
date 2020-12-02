@@ -80,6 +80,7 @@ if str(get_mbk_one()[0][2]) != 0:
 
     )
 
+
 else:
     img_draw.text(
         (50, 400),
@@ -88,7 +89,7 @@ else:
         fill=(134, 31, 45),
     )
 
-# img.show()
+img.show()
 
 
 def get_img_mbk_one():
