@@ -3,6 +3,8 @@ import pathlib
 from echo.nbrb.mbk.mbk_api import get_mbk_one
 
 
+sum_mbk = float(get_mbk_one()[0][1])/1000
+
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
 
@@ -73,8 +75,8 @@ if str(get_mbk_one()[0][2]) != 0:
     )
 
     img_draw.text(
-        (520, 530),
-        str(get_mbk_one()[0][1]) + ' тыс. руб.',
+        (550, 530),
+        str(sum_mbk) + ' млн. руб.',
         font=sum_font,
         fill=(134, 31, 45),
 
@@ -89,7 +91,7 @@ else:
         fill=(134, 31, 45),
     )
 
-img.show()
+# img.show()
 
 
 def get_img_mbk_one():
