@@ -1,33 +1,20 @@
-from requests import Session
-from requests.adapters import HTTPAdapter
-import datetime as dt
 import matplotlib.pyplot as plt
-import numpy as np
 import io
 from PIL import Image
+from echo.nbrb.metal.get_metal import get_metall_all
 
 term = 360
-date_start = (dt.datetime.date(dt.datetime.now()) - dt.timedelta(days=term)).__str__()
-date_end = dt.datetime.date(dt.datetime.now()).__str__()
-kod_metal = 2
-url = f'https://www.nbrb.by/api/bankingots/prices/{kod_metal}?startdate={date_start}&enddate={date_end}'
-
-# делаем стабильное подключение с реконектом = 7 раз
-adapter = HTTPAdapter(max_retries=7)
-with Session() as session:
-    session.mount(url, adapter)
-    response = session.get(url)
-
-tiks = 6
-metal_name = 'ПЛАТИНЫ'
-data = response.json()
+data_all = get_metall_all('platinum', term)
 
 x = []
 y = []
 
-for i in data:
-    x.append(i['Date'][:10])
-    y.append(i['Value'])
+for i in range(len(data_all)):
+    x.append(data_all[i][0])
+    y.append(float(data_all[i][1]))
+
+
+metal_name = 'ПЛАТИНУ'
 
 y_day =y[-1:]
 
@@ -42,11 +29,11 @@ plt.scatter(x=x, y=y, color='tab:red', s=10)
 plt.yticks(fontsize=15)
 
 # подпись оси х - делаем разрядность подписей - автоформат
-plt.xticks(np.arange(1, term, term // tiks))
-plt.xticks(fontsize=14,)
+plt.xticks(fontsize=14, alpha=.5, rotation=90)
 
 # название графика
-plt.title('Динамика ' + metal_name + ' - ' + str(term) + ' дней. Текущая цена (1 г.) - ' + str(y_day[0]) + ' руб.', fontsize=35, pad=45, alpha=1)
+plt.title('График цен на ' + metal_name + '.' + ' Период - 1 год.' + ' Текущая цена (1 г.) - '
+          + str(y_day[0]) + ' руб.', fontsize=30, pad=45, alpha=1)
 
 # Remove borders
 plt.gca().spines["top"].set_alpha(0.0)
