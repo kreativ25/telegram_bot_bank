@@ -1,6 +1,3 @@
-from requests import Session
-from requests.adapters import HTTPAdapter
-import datetime as dt
 from PIL import Image, ImageFont, ImageDraw
 import pathlib
 import pymysql as pm
