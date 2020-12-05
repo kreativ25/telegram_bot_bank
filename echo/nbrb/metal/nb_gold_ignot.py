@@ -3,24 +3,40 @@ from requests.adapters import HTTPAdapter
 import datetime as dt
 from PIL import Image, ImageFont, ImageDraw
 import pathlib
+import pymysql as pm
+import echo.config as cf
 
-date = dt.datetime.date(dt.datetime.now()).__str__()
-kod_metal = 0
-url = f'https://www.nbrb.by/api/ingots/prices/{kod_metal}?ondate={date}'
+nominal_ignot = ['1', '5', '10', '20', '50', '100', '250', '500', '1000']
 
-# делаем стабильное подключение с реконектом = 7 раз
-adapter = HTTPAdapter(max_retries=7)
-with Session() as session:
-    session.mount(url, adapter)
-    response = session.get(url)
 
-metal_data = response.json()
+# Блок подключения к БД MySQL
+connection = pm.connect(host=cf.host,
+                        user=cf.user,
+                        password=cf.password,
+                        db=cf.db)
+
+gold = connection.cursor()
+gold.execute(f"select date from gold_ignot")
+date_gold = gold.fetchone()
+connection.commit()
+
+gold_price = connection.cursor()
+gold_price.execute(f"select nominal_1_in, nominal_1_out, nominal_5_in, nominal_5_out, nominal_10_in, nominal_10_out,"
+                   f"nominal_20_in, nominal_20_out, nominal_50_in, nominal_50_out, nominal_100_in, nominal_100_out,"
+                   f"nominal_250_in, nominal_250_out, nominal_500_in, nominal_500_out, nominal_1000_in, "
+                   f"nominal_1000_out from gold_ignot")
+data_gold_price = gold_price.fetchone()
+connection.commit()
+
+price_in = [data_gold_price[x] for x in range(len(data_gold_price)) if not int(x) % 2]
+price_out = [data_gold_price[x] for x in range(len(data_gold_price)) if int(x) % 2]
+
+
 
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
 
 
-data = dt.datetime.date(dt.datetime.now()).__str__()
 font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
 # font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
 
@@ -42,7 +58,7 @@ for _ in range(243):
 
 img_draw.text((20, 20), name, font=name_font, fill=(134, 31, 45))
 img_draw.text((350, 110), date, font=date_font, fill=(134, 31, 45))
-img_draw.text((570, 110), data, font=date_font, fill=(134, 31, 45))
+img_draw.text((570, 110), str(date_gold[0]), font=date_font, fill=(134, 31, 45))
 
 img_draw.text((100, 220), nominal, font=title_font, fill=(0, 31, 45))
 img_draw.text((400, 220), pokupka, font=title_font, fill=(0, 31, 45))
@@ -52,14 +68,14 @@ img_draw.text((100, 270), line, font=line_font, fill=(134, 31, 45))
 
 up_text = 0
 up_line = 0
-for i in range(len(metal_data)):
-    img_draw.text((120, 280 + up_text), str('{:,}'.format(int(metal_data[i]['Nominal'])).replace(',', ' ')) + ' г.', font=price_font, fill=(0, 31, 45))
-    img_draw.text((420, 280 + up_text), str('{:,}'.format(metal_data[i]['CertificateRubles']).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
-    img_draw.text((820, 280 + up_text), str('{:,}'.format(metal_data[i]['EntitiesRubles']).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
+for i in range(len(nominal_ignot)):
+    img_draw.text((120, 280 + up_text), '{:,}'.format(int(nominal_ignot[i])).replace(',', ' ') + ' г.', font=price_font, fill=(0, 31, 45))
+    img_draw.text((420, 280 + up_text), str('{:,}'.format(float(price_in[i])).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
+    img_draw.text((820, 280 + up_text), str('{:,}'.format(float(price_out[i])).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
     img_draw.text((100, 310 + up_line), line, font=line_font, fill=(134, 31, 45))
 
-    up_text = up_text + 40
-    up_line = up_line + 40
+    up_text = up_text + 45
+    up_line = up_line + 45
 
 # img.show()
 
