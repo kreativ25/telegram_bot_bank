@@ -89,7 +89,7 @@ for i in range(len(nominal_ignot)):
     up_text = up_text + 45
     up_line = up_line + 45
 
-img.show()
+# img.show()
 
 
 def get_platinum_ignot():

@@ -29,8 +29,8 @@ price_out = [data_gold_price[x] for x in range(len(data_gold_price)) if int(x) %
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
 
-# font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
-font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
+font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
+# font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
 
 name_font = ImageFont.truetype(font_path, 67)
 date_font = ImageFont.truetype(font_path, 53)
@@ -88,7 +88,7 @@ for i in range(len(nominal_ignot)):
     up_text = up_text + 45
     up_line = up_line + 45
 
-img.show()
+# img.show()
 
 
 def get_gold_ignot():
