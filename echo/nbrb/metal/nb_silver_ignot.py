@@ -6,8 +6,6 @@ import echo.config as cf
 
 nominal_ignot = ['10', '20', '50', '100', '250', '500', '1000']
 
-
-# Блок подключения к БД MySQL
 connection = pm.connect(host=cf.host,
                         user=cf.user,
                         password=cf.password,
@@ -29,11 +27,8 @@ connection.commit()
 price_in = [data_gold_price[x] for x in range(len(data_gold_price)) if not int(x) % 2]
 price_out = [data_gold_price[x] for x in range(len(data_gold_price)) if int(x) % 2]
 
-
-
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
-
 
 font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
 # font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
@@ -66,10 +61,30 @@ img_draw.text((100, 270), line, font=line_font, fill=(134, 31, 45))
 up_text = 0
 up_line = 0
 for i in range(len(nominal_ignot)):
-    img_draw.text((120, 280 + up_text), '{:,}'.format(int(nominal_ignot[i])).replace(',', ' ') + ' г.', font=price_font, fill=(0, 31, 45))
-    img_draw.text((420, 280 + up_text), str('{:,}'.format(float(price_in[i])).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
-    img_draw.text((820, 280 + up_text), str('{:,}'.format(float(price_out[i])).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
-    img_draw.text((100, 310 + up_line), line, font=line_font, fill=(134, 31, 45))
+    img_draw.text(
+        (120, 280 + up_text),
+        '{:,}'.format(int(nominal_ignot[i])).replace(',', ' ') + ' г.',
+        font=price_font,
+        fill=(0, 31, 45)
+    )
+    img_draw.text(
+        (420, 280 + up_text),
+        str('{:,}'.format(float(price_in[i])).replace(',', ' ')),
+        font=price_font,
+        fill=(0, 31, 45)
+    )
+    img_draw.text(
+        (820, 280 + up_text),
+        str('{:,}'.format(float(price_out[i])).replace(',', ' ')),
+        font=price_font,
+        fill=(0, 31, 45)
+    )
+    img_draw.text(
+        (100, 310 + up_line),
+        line,
+        font=line_font,
+        fill=(134, 31, 45)
+    )
 
     up_text = up_text + 45
     up_line = up_line + 45

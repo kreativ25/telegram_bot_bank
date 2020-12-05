@@ -5,8 +5,6 @@ import echo.config as cf
 
 nominal_ignot = ['1', '5', '10', '20', '50', '100', '250', '500', '1000']
 
-
-# Блок подключения к БД MySQL
 connection = pm.connect(host=cf.host,
                         user=cf.user,
                         password=cf.password,
@@ -28,14 +26,11 @@ connection.commit()
 price_in = [data_gold_price[x] for x in range(len(data_gold_price)) if not int(x) % 2]
 price_out = [data_gold_price[x] for x in range(len(data_gold_price)) if int(x) % 2]
 
-
-
 img = Image.new("RGB", (1200, 800), (255, 255, 255))
 img_draw = ImageDraw.Draw(img)
 
-
-font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
-# font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
+# font_path = pathlib.Path('font/Open_Sans/OpenSans-Regular.ttf').__str__()
+font_path = pathlib.Path('OpenSans-Regular.ttf').__str__()
 
 name_font = ImageFont.truetype(font_path, 67)
 date_font = ImageFont.truetype(font_path, 53)
@@ -44,7 +39,7 @@ price_font = ImageFont.truetype(font_path, 30)
 line_font = ImageFont.truetype(font_path, 10)
 
 name = 'Цены на ЗОЛОТЫЕ мерные слитки'
-date = 'на дату:'
+date = 'установленные на дату:'
 nominal = 'номинал'
 pokupka = 'покупка, руб.'
 prodaja = 'продажа, руб.'
@@ -54,27 +49,46 @@ for _ in range(243):
     line = line + '_'
 
 img_draw.text((20, 20), name, font=name_font, fill=(134, 31, 45))
-img_draw.text((350, 110), date, font=date_font, fill=(134, 31, 45))
-img_draw.text((570, 110), str(date_gold[0]), font=date_font, fill=(134, 31, 45))
+img_draw.text((150, 110), date, font=date_font, fill=(134, 31, 45))
+img_draw.text((780, 110), str(date_gold[0]), font=date_font, fill=(134, 31, 45))
 
 img_draw.text((100, 220), nominal, font=title_font, fill=(0, 31, 45))
 img_draw.text((400, 220), pokupka, font=title_font, fill=(0, 31, 45))
 img_draw.text((800, 220), prodaja, font=title_font, fill=(0, 31, 45))
 img_draw.text((100, 270), line, font=line_font, fill=(134, 31, 45))
 
-
 up_text = 0
 up_line = 0
 for i in range(len(nominal_ignot)):
-    img_draw.text((120, 280 + up_text), '{:,}'.format(int(nominal_ignot[i])).replace(',', ' ') + ' г.', font=price_font, fill=(0, 31, 45))
-    img_draw.text((420, 280 + up_text), str('{:,}'.format(float(price_in[i])).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
-    img_draw.text((820, 280 + up_text), str('{:,}'.format(float(price_out[i])).replace(',', ' ')), font=price_font, fill=(0, 31, 45))
-    img_draw.text((100, 310 + up_line), line, font=line_font, fill=(134, 31, 45))
+    img_draw.text(
+        (120, 280 + up_text),
+        '{:,}'.format(int(nominal_ignot[i])).replace(',', ' ') + ' г.',
+        font=price_font,
+        fill=(0, 31, 45)
+    )
+    img_draw.text(
+        (420, 280 + up_text),
+        str('{:,}'.format(float(price_in[i])).replace(',', ' ')),
+        font=price_font,
+        fill=(0, 31, 45)
+    )
+    img_draw.text(
+        (820, 280 + up_text),
+        str('{:,}'.format(float(price_out[i])).replace(',', ' ')),
+        font=price_font,
+        fill=(0, 31, 45)
+    )
+    img_draw.text(
+        (100, 310 + up_line),
+        line,
+        font=line_font,
+        fill=(134, 31, 45)
+    )
 
     up_text = up_text + 45
     up_line = up_line + 45
 
-# img.show()
+img.show()
 
 
 def get_gold_ignot():
