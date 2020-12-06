@@ -6,39 +6,38 @@
 # Mopidy-Dirble ~= 1.1        # Compatible release. Same as >= 1.1, == 1.*
 
 
-
-APScheduler         3.6.3
-beautifulsoup4      4.9.3
-certifi             2020.6.20
-cffi                1.14.3
-chardet             3.0.4
-cryptography        3.1.1
-cycler              0.10.0
-decorator           4.4.2
-idna                2.10
-kiwisolver          1.2.0
-lxml                4.6.1
-matplotlib          3.3.2
-numpy               1.19.2
-pandas              1.1.3
-Pillow              7.2.0
-pip                 20.2.4
-prompt-toolkit      3.0.7
-pycairo             1.19.1
-pycparser           2.20
-PyMySQL             0.10.1
-pyparsing           2.4.7
-pyTelegramBotAPI    3.7.3
-python-dateutil     2.8.1
-python-telegram-bot 13.0
-pytz                2020.1
-requests            2.7.0
-setuptools          50.3.0
-six                 1.15.0
-soupsieve           2.0.1
-telebot             0.0.3
-tornado             6.0.4
-tzlocal             2.1
-urllib3             1.25.10
-wcwidth             0.2.5
-xlrd                1.2.0
+APScheduler == 3.6.3
+beautifulsoup4 == 4.9.3
+certifi == 2020.6.20
+cffi == 1.14.3
+chardet == 3.0.4
+cryptography == 3.1.1
+cycler == 0.10.0
+decorator == 4.4.2
+idna == 2.10
+kiwisolver == 1.2.0
+lxml == 4.6.1
+matplotlib == 3.3.2
+numpy == 1.19.2
+pandas == 1.1.3
+Pillow == 7.2.0
+pip == 20.2.4
+prompt-toolkit == 3.0.7
+pycairo == 1.19.1
+pycparser == 2.20
+PyMySQL == 0.10.1
+pyparsing == 2.4.7
+pyTelegramBotAPI == 3.7.3
+python-dateutil == 2.8.1
+python-telegram-bot == 13.0
+pytz == 2020.1
+requests == 2.7.0
+setuptools == 50.3.0
+six == 1.15.0
+soupsieve == 2.0.1
+telebot == 0.0.3
+tornado == 6.0.4
+tzlocal == 2.1
+urllib3 == 1.25.10
+wcwidth == 0.2.5
+xlrd == 1.2.0
