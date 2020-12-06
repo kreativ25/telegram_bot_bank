@@ -16,7 +16,7 @@ def curs(_in, _out):
 
     connection = pm.connect(host=cf.host, user=cf.user, password=cf.password, db=cf.db)
     curs = connection.cursor()
-    curs.execute(f'select bank_name, {_in}, {_out}, time_stamp from curs order by usd_out asc')
+    curs.execute(f'select bank_name, {_in}, {_out}, time_stamp from curs order by {_out} asc')
     curs = curs.fetchall()
     connection.commit()
 

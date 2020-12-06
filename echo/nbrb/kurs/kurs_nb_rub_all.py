@@ -29,7 +29,7 @@ plt.yticks(fontsize=15)
 plt.xticks(fontsize=14, alpha=.5, rotation=90)
 
 # название графика
-plt.title('Динамика ' + cur_name + ' - за последние' + str(term) + ' дней.', fontsize=35, pad=45, alpha=1)
+plt.title('Динамика ' + cur_name + ' - за последние ' + str(term) + ' дней.', fontsize=35, pad=45, alpha=1)
 
 # Remove borders
 plt.gca().spines["top"].set_alpha(0.0)

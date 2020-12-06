@@ -59,7 +59,7 @@ def converter(re_text):
     uah_resalt = float('{:.2f}'.format((sum_baza * 100 / uah)))
     pln_resalt = float('{:.2f}'.format(sum_baza * 10 / pln))
 
-    msg_resalt = '<b>Конвертер валют:</b>\n' \
+    msg_resalt = '<b>Конвертер валют:</b>\n\n' \
                  '🇧🇾 ' + str('{:.2f}'.format(sum_baza)) + '\n' \
                  '🇺🇸 ' + str(usd_resalt) + '\n' \
                  '🇪🇺 ' + str(eur_resalt) + '\n' \
