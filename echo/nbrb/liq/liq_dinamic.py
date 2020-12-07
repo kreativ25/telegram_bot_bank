@@ -57,4 +57,5 @@ im = Image.open(buf)
 
 
 def get_liq_all():
+
     return im
