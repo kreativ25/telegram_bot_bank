@@ -7,9 +7,8 @@ import echo.config as cf
 data = dt.datetime.date(dt.datetime.now()).__str__()
 params = {'ondate': data}
 
-# делаем стабильное подключение с реконектом = 7 раз
 url = 'https://www.nbrb.by/api/refinancingrate'
-adapter = HTTPAdapter(max_retries=7)
+adapter = HTTPAdapter(max_retries=10)
 with rq.Session() as session:
     session.mount(url, adapter)
     response = session.get(url, params=params)
@@ -31,7 +30,3 @@ if sr_value is not None:
         " VALUES (%s, %s, %s)",
         (data, sr_value, time_stamp))
     connection.commit()
-
-
-
-
