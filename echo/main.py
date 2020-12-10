@@ -514,7 +514,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=get_mbk_all(),
+            photo=get_mbk(),
             reply_markup=get_inline_nb_mbk()
         )
 

@@ -41,7 +41,7 @@ from echo.nbrb.liq.liq_dinamic import get_liq_all
 from echo.nbrb.liq.liq_one import get_img_liq_one
 
 from echo.menu.button_mbk_global import get_inline_nb_mbk
-from echo.nbrb.mbk.mbk_all import get_mbk_all
+from echo.nbrb.mbk.mbk_all import get_mbk
 from echo.nbrb.mbk.mbk_one import get_img_mbk_one
 
 from echo.bank.curs_get_png.curs_kb import curs
