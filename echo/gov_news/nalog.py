@@ -5,9 +5,9 @@ from requests.adapters import HTTPAdapter
 from dateutil.parser import *
 
 
-def get_economy():
+def get_nalog():
 
-    url = 'http://www.economy.gov.by/ru/rss-ru/'
+    url = 'http://nalog.gov.by/ru/rss_ru/'
     adapter = HTTPAdapter(max_retries=10)
     with rq.Session() as session:
         session.mount(url, adapter)
@@ -34,7 +34,7 @@ def get_economy():
                 pubDate.append(dt.datetime.date(date_prepare).strftime('%Y.%m.%d'))
             n = n + 1
 
-    news_text = '<b>Новости Министерства экономики:</b> \n'
+    news_text = '<b>Новости Министерства по налогам и сборам:</b> \n'
 
     for a in range(5):
         nam = a + 1
