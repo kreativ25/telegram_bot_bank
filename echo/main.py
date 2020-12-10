@@ -395,7 +395,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=nb_gold_price(),
+            photo=get_nb_photo_metal_price_all('gold', 'ЗОЛОТО'),
             reply_markup=menu_metal_price()
         )
 
@@ -407,7 +407,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=nb_silver_price(),
+            photo=get_nb_photo_metal_price_all('silver', 'СЕРЕБРО'),
             reply_markup=menu_metal_price()
         )
 
@@ -419,7 +419,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=nb_platinum_price(),
+            photo=get_nb_photo_metal_price_all('platinum', 'ПЛАТИНУ'),
             reply_markup=menu_metal_price()
         )
 
@@ -431,7 +431,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=nb_palladium_price(),
+            photo=get_nb_photo_metal_price_all('palladium', 'ПАЛЛАДИЙ'),
             reply_markup=menu_metal_price()
         )
 

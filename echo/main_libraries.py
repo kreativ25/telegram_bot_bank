@@ -27,11 +27,6 @@ from echo.menu.button_inline_metal_nb_global import get_menu_inline_metal_nb_glo
 from echo.menu.button_inline_metal_nb_name_price import get_menu_inline_metal_nb_price_all as menu_metal_price
 from echo.menu.button_inline_metal_nb_name_ingot import get_menu_inline_metal_nb_ignot_all as menu_metal_ignot
 
-from echo.nbrb.metal.nb_gold_price_all import get_nb_gold_price_all as nb_gold_price
-from echo.nbrb.metal.nb_platinum_price_all import get_nb_platinum_price_all as nb_platinum_price
-from echo.nbrb.metal.nb_silver_price_all import get_nb_silver_price_all as nb_silver_price
-from echo.nbrb.metal.nb_palladium_price_all import get_nb_palladium_price_all as nb_palladium_price
-
 from echo.nbrb.metal.nb_gold_ignot import get_gold_ignot
 from echo.nbrb.metal.nb_silver_ignot import get_silver_ignot
 from echo.nbrb.metal.nb_platinum_ignot import get_platinum_ignot
@@ -48,3 +43,4 @@ from echo.bank.curs_get_png.curs_kb import curs
 from echo.bank.converter.convert import converter
 
 from echo.nbrb.kurs.get_curs import get_curs_all
+from echo.nbrb.metal.nb_get_photo_metall_all import get_nb_photo_metal_price_all
