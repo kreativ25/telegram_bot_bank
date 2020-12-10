@@ -312,7 +312,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=get_kurs_nb_usd_all(),
+            photo=get_curs_all('usd', 'Доллара США'),
             reply_markup=kurs_nb_cur_all()
         )
 
@@ -324,7 +324,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=get_kurs_nb_eur_all(),
+            photo=get_curs_all('eur', 'Евро'),
             reply_markup=kurs_nb_cur_all()
         )
 
@@ -336,7 +336,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=get_kurs_nb_rub_all(),
+            photo=get_curs_all('rub', 'Российского рубля'),
             reply_markup=kurs_nb_cur_all()
         )
 
@@ -348,7 +348,7 @@ def send_menu_nb_sr(message):
         )
         bot.send_photo(
             chat_id=message.message.chat.id,
-            photo=get_kurs_nb_pln_all(),
+            photo=get_curs_all('pln', 'Польского злотого'),
             reply_markup=kurs_nb_cur_all()
         )
 

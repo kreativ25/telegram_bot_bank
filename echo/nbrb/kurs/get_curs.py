@@ -5,23 +5,17 @@ from echo.nbrb.kurs.get_func_curs import *
 import warnings
 
 
-def get_kurs_nb_eur_all():
+def get_curs_all(cod_cur, cur_title):
 
     term = 700
-    data_eur = curs_nb_all('eur', max_date_curs_nb(), term)
+    data_usd = curs_nb_all(cod_cur, max_date_curs_nb(), term)
 
-    x = []
-    y = []
-
-    for i in range(len(data_eur)):
-        x.append(data_eur[i][0])
-        y.append(float(data_eur[i][1]))
-
-    cur_name = 'Евро'
+    x = [data_usd[i][0] for i in range(len(data_usd))]
+    y = [float(data_usd[i][1]) for i in range(len(data_usd))]
 
     warnings.simplefilter("ignore", UserWarning)
     plt.figure(figsize=(18, 12), dpi=100)
-    plt.plot(x, y, color='tab:red', label=cur_name)
+    plt.plot(x, y, color='tab:red', label=cur_title)
     plt.grid(axis='both', alpha=.5)
 
     # размер точек на линии
@@ -34,7 +28,7 @@ def get_kurs_nb_eur_all():
     plt.xticks(fontsize=14, alpha=.5, rotation=90)
 
     # название графика
-    plt.title('Динамика ' + cur_name + ' - за последние ' + str(term) + ' дней.', fontsize=35, pad=45, alpha=1)
+    plt.title('Динамика ' + cur_title + ' - за последние ' + str(term) + ' дней.', fontsize=35, pad=45, alpha=1)
 
     # Remove borders
     plt.gca().spines["top"].set_alpha(0.0)

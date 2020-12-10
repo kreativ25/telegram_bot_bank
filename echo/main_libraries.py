@@ -23,11 +23,6 @@ from echo.menu.button_inline_kurs_nb_cur_all import get_menu_inline_kurs_nb_cur_
 from echo.menu.button_inline_bank_global import get_base_menu_kb
 from echo.menu.button_inline_bank_kurs import get_menu_inline_kurs_kb
 
-
-from echo.nbrb.kurs.kurs_nb_usd_all import get_kurs_nb_usd_all
-from echo.nbrb.kurs.kurs_nb_eur_all import get_kurs_nb_eur_all
-from echo.nbrb.kurs.kurs_nb_rub_all import get_kurs_nb_rub_all
-from echo.nbrb.kurs.kurs_nb_pln_all import get_kurs_nb_pln_all
 from echo.menu.button_inline_metal_nb_global import get_menu_inline_metal_nb_global as menu_metal
 from echo.menu.button_inline_metal_nb_name_price import get_menu_inline_metal_nb_price_all as menu_metal_price
 from echo.menu.button_inline_metal_nb_name_ingot import get_menu_inline_metal_nb_ignot_all as menu_metal_ignot
@@ -51,3 +46,5 @@ from echo.nbrb.mbk.mbk_one import get_img_mbk_one
 
 from echo.bank.curs_get_png.curs_kb import curs
 from echo.bank.converter.convert import converter
+
+from echo.nbrb.kurs.get_curs import get_curs_all
