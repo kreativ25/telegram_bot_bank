@@ -100,6 +100,26 @@ def send_menu_nb(message):
             text=text_converter,
         )
 
+    if message.text == 'Обратная связь':
+        text_mail = 'Привет! 👋\n\n' \
+                         'Мне можно написать любой вопрос, отправив сообщение в Telegram:\n' \
+                         'https://t.me/Bel_bot_bank' \
+
+
+        bot.send_message(
+            chat_id=message.chat.id,
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            text=text_mail,
+        )
+
+
+
+
+
+
+
+
     # конвертер валют
     if converter(message.text):
         bot.send_message(
@@ -109,6 +129,17 @@ def send_menu_nb(message):
             text=converter(message.text),
 
         )
+
+
+    if message.text == 'Новости гос. органов':
+        bot.send_message(
+            chat_id=message.chat.id,
+            text='Пожалуйста, сделайте выбор!',
+            reply_markup=get_inline_gos_news()
+        )
+
+
+
 
 
 @bot.callback_query_handler(func=lambda message: True)
@@ -551,6 +582,61 @@ def send_menu_nb_sr(message):
             chat_id=message.message.chat.id,
             photo=curs('rub_in', 'rub_out'),
             reply_markup=get_menu_inline_kurs_kb()
+        )
+
+    # отправляем новости госорганов - Минэкономики
+    if message.data == 'button_news_economy':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=get_economy(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=get_inline_gos_news()
+        )
+    # отправляем новости госорганов - Минфин
+    if message.data == 'button_news_minfin':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=get_minfin(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=get_inline_gos_news()
+        )
+
+    # отправляем новости госорганов - Мингорисполком
+    if message.data == 'button_news_migorispolcom':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=get_mingor(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=get_inline_gos_news()
+        )
+
+    # отправляем новости госорганов - Налоговая
+    if message.data == 'button_news_nalog':
+        bot.delete_message(
+            chat_id=message.message.chat.id,
+            message_id=message.message.message_id,
+        )
+        bot.send_message(
+            chat_id=message.message.chat.id,
+            text=get_nalog(),
+            parse_mode='HTML',
+            disable_web_page_preview=True,
+            reply_markup=get_inline_gos_news()
         )
 
 

@@ -44,3 +44,9 @@ from echo.bank.converter.convert import converter
 
 from echo.nbrb.kurs.get_curs import get_curs_all
 from echo.nbrb.metal.nb_get_photo_metall_all import get_nb_photo_metal_price_all
+
+from echo.menu.news_gos import get_inline_gos_news
+from echo.gov_news.economy import get_economy
+from echo.gov_news.minfin import get_minfin
+from echo.gov_news.mingorispolcom import get_mingor
+from echo.gov_news.nalog import get_nalog
