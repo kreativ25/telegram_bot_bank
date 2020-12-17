@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from echo.main_libraries import *
 
 bot = telebot.TeleBot(conf.token)
