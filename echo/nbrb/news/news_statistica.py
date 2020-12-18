@@ -36,4 +36,3 @@ def get_statistica():
                     + str(pubDate[a]) + ')\n\n'
 
     return news_text
-

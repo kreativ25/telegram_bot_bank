@@ -3,10 +3,6 @@ import pathlib
 from echo.nbrb.liq.liq_api import get_liq_data_old, get_liq_delta
 
 
-
-# img.show()
-
-
 def get_img_liq_one():
     img = Image.new("RGB", (1200, 800), (255, 255, 255))
     img_draw = ImageDraw.Draw(img)

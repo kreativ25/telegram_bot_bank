@@ -7,16 +7,20 @@ import warnings
 
 
 def get_plot_sr_all():
-    # получаем максимальную дату БД
-    connection = pm.connect(host=cf.host,
-                            user=cf.user,
-                            password=cf.password,
-                            db=cf.db)
 
-    sr_all = connection.cursor()
-    sr_all.execute("select date, sr from sr_all")
-    date_bd = sr_all.fetchall()
-    connection.commit()
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
+
+        sr_all = connection.cursor()
+        sr_all.execute("select date, sr from sr_all")
+        date_bd = sr_all.fetchall()
+        connection.commit()
+
+    finally:
+        connection.close()
 
     date = []
     value = []

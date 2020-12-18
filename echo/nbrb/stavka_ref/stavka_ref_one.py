@@ -7,15 +7,19 @@ import echo.config as cf
 
 def get_sr():
 
-    con_sr = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
+    try:
+        con_sr = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-    sr_one = con_sr.cursor()
-    sr_one.execute("select sr, time_stamp from sr_one")
-    sr_one_result = sr_one.fetchone()
-    con_sr.commit()
+        sr_one = con_sr.cursor()
+        sr_one.execute("select sr, time_stamp from sr_one")
+        sr_one_result = sr_one.fetchone()
+        con_sr.commit()
+
+    finally:
+        con_sr.close()
 
     sr_value = str(sr_one_result[0])
     sr_date = str(dt.datetime.date(sr_one_result[1]))

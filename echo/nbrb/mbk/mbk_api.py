@@ -1,30 +1,44 @@
 import pymysql as pm
 import echo.config as cf
 
-# Блок подключения к БД MySQL
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
-
 
 def get_mbk_one():
-    mbk_one = connection.cursor()
-    mbk_one.execute("select date, mbk_sum, mbk_stavka, time_stamp from mbk order by date(date) desc limit 1")
-    mbk_one_bd = mbk_one.fetchall()
-    connection.commit()
 
-    return mbk_one_bd
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
+
+        mbk_one = connection.cursor()
+        mbk_one.execute("select date, mbk_sum, mbk_stavka, time_stamp from mbk order by date(date) desc limit 1")
+        mbk_one_bd = mbk_one.fetchall()
+        connection.commit()
+
+        return mbk_one_bd
+
+    finally:
+        connection.close()
 
 
 def get_mbk_all(date_limit):
-    mbk_all = connection.cursor()
-    mbk_all.execute(f"select date, mbk_sum, mbk_stavka, time_stamp from mbk "
-                    f"WHERE mbk_sum <> 0 order by date(date) desc limit {date_limit} ")
-    mbk_all_bd = mbk_all.fetchall()
-    connection.commit()
 
-    return mbk_all_bd
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
+
+        mbk_all = connection.cursor()
+        mbk_all.execute(f"select date, mbk_sum, mbk_stavka, time_stamp from mbk "
+                        f"WHERE mbk_sum <> 0 order by date(date) desc limit {date_limit} ")
+        mbk_all_bd = mbk_all.fetchall()
+        connection.commit()
+
+        return mbk_all_bd
+
+    finally:
+        connection.close()
 
 
 

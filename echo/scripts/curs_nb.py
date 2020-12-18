@@ -4,23 +4,23 @@ import datetime as dt
 import pymysql as pm
 import echo.config as cf
 
-# Блок подключения к БД MySQL
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
+try:
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-# запрос к MySQL - максимальная дата
-cur = connection.cursor()
-cur.execute("select max(date) from curs_nb")
-max_date_mysql = cur.fetchone()
-connection.commit()
+    # запрос к MySQL - максимальная дата
+    cur = connection.cursor()
+    cur.execute("select max(date) from curs_nb")
+    max_date_mysql = cur.fetchone()
+    connection.commit()
+
+finally:
+    connection.close()
 
 date_now = dt.datetime.now().date()
-
 term = (date_now - max_date_mysql[0]).days
-
-
 
 kurs_nb_list = {
     'usd': 145,
@@ -76,15 +76,23 @@ if max_date_mysql[0] != date_now:
             time_stamp = dt.datetime.now()
 
             if max_date_mysql[0] < dt.datetime.strptime(usd[i]['date'], '%Y.%m.%d').date():
+                try:
+                    connection = pm.connect(host=cf.host,
+                                            user=cf.user,
+                                            password=cf.password,
+                                            db=cf.db)
 
-                cur = connection.cursor()
-                cur.execute("INSERT LOW_PRIORITY INTO curs_nb (date, usd, eur, rub, uah, pln, time_stamp) "
-                            "VALUES (%s, %s, %s, %s, %s, %s, %s)",
-                            (dt.datetime.strptime(usd[i]['date'], '%Y.%m.%d').date(),
-                             usd[i]['value'],
-                             eur[i]['value'],
-                             rub[i]['value'],
-                             uah[i]['value'],
-                             pln[i]['value'],
-                             time_stamp))
-                connection.commit()
+                    cur = connection.cursor()
+                    cur.execute("INSERT LOW_PRIORITY INTO curs_nb (date, usd, eur, rub, uah, pln, time_stamp) "
+                                "VALUES (%s, %s, %s, %s, %s, %s, %s)",
+                                (dt.datetime.strptime(usd[i]['date'], '%Y.%m.%d').date(),
+                                 usd[i]['value'],
+                                 eur[i]['value'],
+                                 rub[i]['value'],
+                                 uah[i]['value'],
+                                 pln[i]['value'],
+                                 time_stamp))
+                    connection.commit()
+
+                finally:
+                    connection.close()

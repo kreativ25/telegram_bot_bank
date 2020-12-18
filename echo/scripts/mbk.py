@@ -14,17 +14,20 @@ time_stamp = dt.datetime.now()
 data_mbk = {}
 mbk_all = {}
 
-# Блок подключения к БД MySQL
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
+try:
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-# запрос к MySQL - максимальная дата
-max_date = connection.cursor()
-max_date.execute("select max(date) from mbk")
-max_date_bd_prepare = max_date.fetchone()
-connection.commit()
+    # запрос к MySQL - максимальная дата
+    max_date = connection.cursor()
+    max_date.execute("select max(date) from mbk")
+    max_date_bd_prepare = max_date.fetchone()
+    connection.commit()
+
+finally:
+    connection.close()
 
 delta = (date_yesterday - max_date_bd_prepare[0]).days
 
@@ -88,11 +91,20 @@ if date_yesterday != max_date_bd_prepare[0]:
         _i = i + 1
         data_record = max_date_bd_prepare[0] + dt.timedelta(days=_i)
 
-        # запрос к MySQL - максимальная дата
-        max_date = connection.cursor()
-        max_date.execute("select max(date) from mbk")
-        max_date_bd = max_date.fetchone()
-        connection.commit()
+        try:
+            connection = pm.connect(host=cf.host,
+                                    user=cf.user,
+                                    password=cf.password,
+                                    db=cf.db)
+
+            # запрос к MySQL - максимальная дата
+            max_date = connection.cursor()
+            max_date.execute("select max(date) from mbk")
+            max_date_bd = max_date.fetchone()
+            connection.commit()
+
+        finally:
+            connection.close()
 
         data_record_ = dt.datetime.strftime(con_site(data_record)['date'], '%Y.%m.%d')
         max_date_bd_ = dt.datetime.strftime(max_date_bd[0], '%Y.%m.%d')
@@ -102,8 +114,19 @@ if date_yesterday != max_date_bd_prepare[0]:
         if data_record_ != max_date_bd_:
             # запись спарсеных данных в MySQL
             mbk_pars = connection.cursor()
-            mbk_pars.execute(
-                "INSERT LOW_PRIORITY INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
-                " VALUES (%s, %s, %s, %s)",
-                (get_data_mbk['date'], get_data_mbk['mbk_sum'], get_data_mbk['mbk_stavka'], time_stamp))
-            connection.commit()
+
+            try:
+                connection = pm.connect(host=cf.host,
+                                        user=cf.user,
+                                        password=cf.password,
+                                        db=cf.db)
+
+                mbk_pars = connection.cursor()
+                mbk_pars.execute(
+                    "INSERT LOW_PRIORITY INTO mbk (date, mbk_sum, mbk_stavka, time_stamp)"
+                    " VALUES (%s, %s, %s, %s)",
+                    (get_data_mbk['date'], get_data_mbk['mbk_sum'], get_data_mbk['mbk_stavka'], time_stamp))
+                connection.commit()
+
+            finally:
+                connection.close()

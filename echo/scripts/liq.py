@@ -6,25 +6,37 @@ import datetime as dt
 import pymysql as pm
 import echo.config as cf
 
-# Блок подключения к БД MySQL
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
 
-# запрос к MySQL - максимальная дата
-cur = connection.cursor()
-cur.execute("select max(date) from liq")
-max_date_mysql = cur.fetchone()
-connection.commit()
+try:
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-# получаем список дат в БД MySQL
-cur = connection.cursor()
-cur.execute('select date as date_mysql from liq')
-date_list_mysql = cur.fetchall()
+    # запрос к MySQL - максимальная дата
+    cur = connection.cursor()
+    cur.execute("select max(date) from liq")
+    max_date_mysql = cur.fetchone()
+    connection.commit()
+
+finally:
+    connection.close()
+
+
+try:
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
+
+    # получаем список дат в БД MySQL
+    cur = connection.cursor()
+    cur.execute('select date as date_mysql from liq')
+    date_list_mysql = cur.fetchall()
+finally:
+    connection.close()
 
 date_now = dt.datetime.now().date()
-
 
 if date_now != max_date_mysql[0]:
 
@@ -98,7 +110,16 @@ if date_now != max_date_mysql[0]:
         date_p = dt.datetime.strptime(data_all[i]['date_liq'], '%Y.%m.%d').date()
         if date_p not in list_date_mysql:
             time_stamp = dt.datetime.now()
-            cur = connection.cursor()
-            cur.execute("INSERT LOW_PRIORITY INTO liq (date, liq, prt, psi, time_stamp) VALUES (%s, %s, %s, %s, %s)",
-                        (data_all[i]['date_liq'], data_all[i]['liq'], data_all[i]['prt'], data_all[i]['psi'], time_stamp))
-            connection.commit()
+
+            try:
+                connection = pm.connect(host=cf.host,
+                                        user=cf.user,
+                                        password=cf.password,
+                                        db=cf.db)
+
+                cur = connection.cursor()
+                cur.execute("INSERT LOW_PRIORITY INTO liq (date, liq, prt, psi, time_stamp) VALUES (%s, %s, %s, %s, %s)",
+                            (data_all[i]['date_liq'], data_all[i]['liq'], data_all[i]['prt'], data_all[i]['psi'], time_stamp))
+                connection.commit()
+            finally:
+                connection.close()

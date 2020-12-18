@@ -10,16 +10,20 @@ import warnings
 
 def get_liq_all():
 
-    connection = pm.connect(host=cf.host,
-                            user=cf.user,
-                            password=cf.password,
-                            db=cf.db)
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
 
-    date = (dt.datetime.now().date() - dt.timedelta(days=360))
-    cur = connection.cursor()
-    cur.execute(f"select date, liq from liq where date > '{date}' ORDER BY date")
-    data_mysql = cur.fetchall()
-    connection.commit()
+        date = (dt.datetime.now().date() - dt.timedelta(days=360))
+        cur = connection.cursor()
+        cur.execute(f"select date, liq from liq where date > '{date}' ORDER BY date")
+        data_mysql = cur.fetchall()
+        connection.commit()
+
+    finally:
+        connection.close()
 
     df = pd.DataFrame(data_mysql)
 

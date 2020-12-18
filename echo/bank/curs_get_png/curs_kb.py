@@ -14,11 +14,14 @@ def curs(_in, _out):
     if _in == 'rub_in':
         exh = 'Российский рубль'
 
-    connection = pm.connect(host=cf.host, user=cf.user, password=cf.password, db=cf.db)
-    curs = connection.cursor()
-    curs.execute(f'select bank_name, {_in}, {_out}, time_stamp from curs order by {_out} asc')
-    curs = curs.fetchall()
-    connection.commit()
+    try:
+        connection = pm.connect(host=cf.host, user=cf.user, password=cf.password, db=cf.db)
+        curs = connection.cursor()
+        curs.execute(f'select bank_name, {_in}, {_out}, time_stamp from curs order by {_out} asc')
+        curs = curs.fetchall()
+        connection.commit()
+    finally:
+        connection.close()
 
     img = Image.new("RGB", (1200, 800), (255, 255, 255))
     img_draw = ImageDraw.Draw(img)
@@ -67,7 +70,7 @@ def curs(_in, _out):
 
     return img
 
-curs('eur_in', 'eur_out')
+# curs('eur_in', 'eur_out')
 
 
 # date = dt.datetime.date(dt.datetime.now()).__str__()

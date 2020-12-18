@@ -8,23 +8,27 @@ def get_silver_ignot():
 
     nominal_ignot = ['10', '20', '50', '100', '250', '500', '1000']
 
-    connection = pm.connect(host=cf.host,
-                            user=cf.user,
-                            password=cf.password,
-                            db=cf.db)
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
 
-    gold = connection.cursor()
-    gold.execute(f"select date from silver_ignot")
-    date_silver = gold.fetchone()
-    connection.commit()
+        gold = connection.cursor()
+        gold.execute(f"select date from silver_ignot")
+        date_silver = gold.fetchone()
+        connection.commit()
 
-    silver_price = connection.cursor()
-    silver_price.execute(f"select nominal_10_in, nominal_10_out,"
-                         f"nominal_20_in, nominal_20_out, nominal_50_in, nominal_50_out, nominal_100_in, nominal_100_out,"
-                         f"nominal_250_in, nominal_250_out, nominal_500_in, nominal_500_out, nominal_1000_in, "
-                         f"nominal_1000_out from silver_ignot")
-    data_gold_price = silver_price.fetchone()
-    connection.commit()
+        silver_price = connection.cursor()
+        silver_price.execute(f"select nominal_10_in, nominal_10_out,"
+                             f"nominal_20_in, nominal_20_out, nominal_50_in, nominal_50_out, nominal_100_in, nominal_100_out,"
+                             f"nominal_250_in, nominal_250_out, nominal_500_in, nominal_500_out, nominal_1000_in, "
+                             f"nominal_1000_out from silver_ignot")
+        data_gold_price = silver_price.fetchone()
+        connection.commit()
+
+    finally:
+        connection.close()
 
     price_in = [data_gold_price[x] for x in range(len(data_gold_price)) if not int(x) % 2]
     price_out = [data_gold_price[x] for x in range(len(data_gold_price)) if int(x) % 2]

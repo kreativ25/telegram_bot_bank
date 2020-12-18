@@ -59,18 +59,20 @@ rub_out = float(data_all[2]['sell'])*100
 rub_out = float('{:.4f}'.format(rub_out))
 time_stamp = dt.datetime.now()
 
+try:
+    # Блок подключения к БД MySQL
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-# Блок подключения к БД MySQL
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
-
-# запись данных в MySQL
-curs = connection.cursor()
-curs.execute('delete LOW_PRIORITY from curs where bank_id = 108')
-curs.execute(
-    "INSERT LOW_PRIORITY INTO curs (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp)"
-    " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
-    (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp))
-connection.commit()
+    # запись данных в MySQL
+    curs = connection.cursor()
+    curs.execute('delete LOW_PRIORITY from curs where bank_id = 108')
+    curs.execute(
+        "INSERT LOW_PRIORITY INTO curs (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp)"
+        " VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",
+        (date, bank_id, bank_name, usd_in, usd_out, eur_in, eur_out, rub_in, rub_out, time_stamp))
+    connection.commit()
+finally:
+    connection.close()

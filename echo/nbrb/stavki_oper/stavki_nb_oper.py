@@ -10,17 +10,22 @@ dabl_kredit_mysql = []
 
 
 def get_data_st():
-    connection = pm.connect(host=cf.host,
-                            user=cf.user,
-                            password=cf.password,
-                            db=cf.db)
 
-    cur = connection.cursor()
-    cur.execute(
-        'select data_stavki as ds, kredit_over as ko, depozit_over as do, dabl_kredit as dk from stavki_nb_oper')
-    data_mysql = cur.fetchall()
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
 
-    return data_mysql
+        cur = connection.cursor()
+        cur.execute(
+            'select data_stavki as ds, kredit_over as ko, depozit_over as do, dabl_kredit as dk from stavki_nb_oper')
+        data_mysql = cur.fetchall()
+
+        return data_mysql
+
+    finally:
+        connection.close()
 
 
 # выбираем все даты из MySQL
