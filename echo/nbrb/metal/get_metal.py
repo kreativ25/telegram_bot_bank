@@ -18,7 +18,6 @@ def get_metall_all(metal_name, term):
                         f"WHERE date > '{date_cur}' ")
         all_bd = con.fetchall()
         connection.commit()
-        connection.close()
 
         return all_bd
 
