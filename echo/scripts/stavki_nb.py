@@ -4,17 +4,20 @@ import datetime as dt
 import pymysql as pm
 import echo.config as cf
 
-# Блок подключения к БД MySQL
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
+try:
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-# запрос к MySQL - максимальная дата
-data_stavki = connection.cursor()
-data_stavki.execute("select max(data_stavki) from stavki_nb_oper")
-max_date_bd = data_stavki.fetchone()
-connection.commit()
+    # запрос к MySQL - максимальная дата
+    data_stavki = connection.cursor()
+    data_stavki.execute("select max(data_stavki) from stavki_nb_oper")
+    max_date_bd = data_stavki.fetchone()
+    connection.commit()
+
+finally:
+    connection.close()
 
 # выбираем даты на сайте
 # подключаем экселевский файл
@@ -74,11 +77,20 @@ date_site_list = []
 if max_date_bd[0] != max_date_site:
     print('ss')
 
-    # получаем список дат в БД MySQL
-    cur = connection.cursor()
-    cur.execute('select data_stavki as data from stavki_nb_oper')
-    date_satavki_nb_mysql = cur.fetchall()
-    connection.commit()
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
+
+        # получаем список дат в БД MySQL
+        cur = connection.cursor()
+        cur.execute('select data_stavki as data from stavki_nb_oper')
+        date_satavki_nb_mysql = cur.fetchall()
+        connection.commit()
+
+    finally:
+        connection.close()
 
     time_stamp = dt.datetime.now()
 
@@ -90,9 +102,19 @@ if max_date_bd[0] != max_date_site:
 
     for j in range(len(date_site_list)):
         if date_site_list[j] not in date_bd_list:
-            cur = connection.cursor()
-            cur.execute(
-                "INSERT LOW_PRIORITY INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
-                " VALUES (%s, %s, %s, %s, %s)",
-                (data_stavki[j], kredit_over_stavki[j], depozit_over_stavki[j], dabl_kredit[j], time_stamp))
-            connection.commit()
+
+            try:
+                connection = pm.connect(host=cf.host,
+                                        user=cf.user,
+                                        password=cf.password,
+                                        db=cf.db)
+
+                cur = connection.cursor()
+                cur.execute(
+                    "INSERT LOW_PRIORITY INTO stavki_nb_oper (data_stavki, kredit_over, depozit_over, dabl_kredit, ts)"
+                    " VALUES (%s, %s, %s, %s, %s)",
+                    (data_stavki[j], kredit_over_stavki[j], depozit_over_stavki[j], dabl_kredit[j], time_stamp))
+                connection.commit()
+
+            finally:
+                connection.close()

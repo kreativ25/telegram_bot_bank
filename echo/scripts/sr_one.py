@@ -18,15 +18,20 @@ sr_value = sr_value[0]['Value']
 time_stamp = dt.datetime.now()
 
 if sr_value is not None:
-    connection = pm.connect(host=cf.host,
-                            user=cf.user,
-                            password=cf.password,
-                            db=cf.db)
 
-    sr = connection.cursor()
-    sr.execute('truncate table sr_one')
-    sr.execute(
-        "INSERT HIGH_PRIORITY INTO sr_one (date, sr, time_stamp)"
-        " VALUES (%s, %s, %s)",
-        (data, sr_value, time_stamp))
-    connection.commit()
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
+
+        sr = connection.cursor()
+        sr.execute('truncate table sr_one')
+        sr.execute(
+            "INSERT HIGH_PRIORITY INTO sr_one (date, sr, time_stamp)"
+            " VALUES (%s, %s, %s)",
+            (data, sr_value, time_stamp))
+        connection.commit()
+
+    finally:
+        connection.close()

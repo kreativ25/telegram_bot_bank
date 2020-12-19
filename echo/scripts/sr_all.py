@@ -17,15 +17,19 @@ with rq.Session() as session:
 date_api = dt.datetime.strptime(sr_new.json()[0]['Date'][:-9].replace('-', '.'), '%Y.%m.%d').date()
 
 # получаем максимальную дату БД
-connection = pm.connect(host=cf.host,
-                        user=cf.user,
-                        password=cf.password,
-                        db=cf.db)
+try:
+    connection = pm.connect(host=cf.host,
+                            user=cf.user,
+                            password=cf.password,
+                            db=cf.db)
 
-cur = connection.cursor()
-cur.execute("select max(date) from sr_all")
-date_bd = cur.fetchone()
-connection.commit()
+    cur = connection.cursor()
+    cur.execute("select max(date) from sr_all")
+    date_bd = cur.fetchone()
+    connection.commit()
+
+finally:
+    connection.close()
 
 
 if date_api != date_bd[0] or date_bd is None:
@@ -46,15 +50,34 @@ if date_api != date_bd[0] or date_bd is None:
         }
 
     # очищаем таблицу
-    sr = connection.cursor()
-    sr.execute('truncate table sr_all')
-    connection.commit()
+    try:
+        connection = pm.connect(host=cf.host,
+                                user=cf.user,
+                                password=cf.password,
+                                db=cf.db)
+
+        sr = connection.cursor()
+        sr.execute('truncate table sr_all')
+        connection.commit()
+
+    finally:
+        connection.close()
 
     for i in range(len(sr_all_result)):
         time_stamp = dt.datetime.now()
-        sr = connection.cursor()
-        sr.execute(
-            "INSERT HIGH_PRIORITY INTO sr_all (date, sr, time_stamp)"
-            " VALUES (%s, %s, %s)",
-            (sr_all_result[i]['date'], sr_all_result[i]['value'], time_stamp))
-        connection.commit()
+
+        try:
+            connection = pm.connect(host=cf.host,
+                                    user=cf.user,
+                                    password=cf.password,
+                                    db=cf.db)
+
+            sr = connection.cursor()
+            sr.execute(
+                "INSERT HIGH_PRIORITY INTO sr_all (date, sr, time_stamp)"
+                " VALUES (%s, %s, %s)",
+                (sr_all_result[i]['date'], sr_all_result[i]['value'], time_stamp))
+            connection.commit()
+
+        finally:
+            connection.close()
