@@ -28,56 +28,90 @@ def converter(re_text):
     byr_res_2 = re.search(r'белк', re_text)
 
     res_nam = re.search(r'\d+', re_text)
-    if res_nam:
-        res_num = res_nam.group(0)
+
 
     # расчет базовой суммы
     sum_baza = 1
 
-    if usd_res_1 is not None or usd_res_2 is not None:
-        sum_baza = float(usd) * float(res_num)
+    n = 0
 
-    if eur_res_1 is not None or eur_res_2 is not None:
-        sum_baza = float(eur) * float(res_num)
+    try:
 
-    if rub_res_1 is not None or rub_res_2 is not None:
-        sum_baza = (float(rub) * float(res_num))/100
+        if usd_res_1 is not None or usd_res_2 is not None:
+            if res_nam:
+                res_num = float(res_nam.group(0))
+            if res_num > float(n):
+                sum_baza = float(usd) * float(res_num)
+            else:
+                sum_baza = float(usd) * 1
 
-    if uah_res_1 is not None or uah_res_2 is not None:
-        sum_baza = (float(uah) * float(res_num))/100
+        if eur_res_1 is not None or eur_res_2 is not None:
+            if res_nam:
+                res_num = float(res_nam.group(0))
+            if res_num > float(n):
+                sum_baza = float(eur) * float(res_num)
+            else:
+                sum_baza = float(eur) * 1
 
-    if pln_res_1 is not None or pln_res_2 is not None:
-        sum_baza = (float(pln) * float(res_num))/10
+        if rub_res_1 is not None or rub_res_2 is not None:
+            if res_nam:
+                res_num = float(res_nam.group(0))
+            if res_num > float(n):
+                sum_baza = (float(rub) * float(res_num))/100
+            else:
+                sum_baza = (float(rub) * 1) / 100
 
-    if byr_res_1 is not None or byr_res_2 is not None:
-        sum_baza = 1 * float(res_num)
+        if uah_res_1 is not None or uah_res_2 is not None:
+            if res_nam:
+                res_num = float(res_nam.group(0))
+            if res_num > float(n):
+                sum_baza = (float(uah) * float(res_num))/100
+            else:
+                sum_baza = (float(uah) * 1) / 100
 
-    # расчет курсов
-    usd_resalt = float('{:.2f}'.format(sum_baza / usd))
-    eur_resalt = float('{:.2f}'.format(sum_baza / eur))
-    rub_resalt = float('{:.2f}'.format(sum_baza * 100 / rub))
-    uah_resalt = float('{:.2f}'.format((sum_baza * 100 / uah)))
-    pln_resalt = float('{:.2f}'.format(sum_baza * 10 / pln))
+        if pln_res_1 is not None or pln_res_2 is not None:
+            if res_nam:
+                res_num = float(res_nam.group(0))
+            if res_num > float(n):
+                sum_baza = (float(pln) * float(res_num))/10
+            else:
+                sum_baza = (float(pln) * 1) / 10
 
-    msg_resalt = '<b>Конвертер валют:</b>\n\n' \
-                 '🇧🇾 ' + str('{:.2f}'.format(sum_baza)) + '\n' \
-                 '🇺🇸 ' + str(usd_resalt) + '\n' \
-                 '🇪🇺 ' + str(eur_resalt) + '\n' \
-                 '🇷🇺 ' + str(rub_resalt) + '\n' \
-                 '🇺🇦 ' + str(uah_resalt) + '\n' \
-                 '🇵🇱 ' + str(pln_resalt)
+        if byr_res_1 is not None or byr_res_2 is not None:
+            if res_nam:
+                res_num = float(res_nam.group(0))
+            if res_num > float(n):
+                sum_baza = 1 * float(res_num)
 
-    if usd_res_1 is not None\
-            or usd_res_2 is not None\
-            or eur_res_1 is not None\
-            or eur_res_2 is not None\
-            or rub_res_1 is not None\
-            or rub_res_2 is not None\
-            or uah_res_1 is not None\
-            or uah_res_2 is not None\
-            or pln_res_1 is not None\
-            or pln_res_2 is not None:
-        if res_nam:
-            return msg_resalt
-        else:
-            return False
+        # расчет курсов
+        usd_resalt = float('{:.2f}'.format(sum_baza / usd))
+        eur_resalt = float('{:.2f}'.format(sum_baza / eur))
+        rub_resalt = float('{:.2f}'.format(sum_baza * 100 / rub))
+        uah_resalt = float('{:.2f}'.format((sum_baza * 100 / uah)))
+        pln_resalt = float('{:.2f}'.format(sum_baza * 10 / pln))
+
+        msg_resalt = '<b>Конвертер валют:</b>\n\n' \
+                     '🇧🇾 ' + str('{:.2f}'.format(sum_baza)) + '\n' \
+                     '🇺🇸 ' + str(usd_resalt) + '\n' \
+                     '🇪🇺 ' + str(eur_resalt) + '\n' \
+                     '🇷🇺 ' + str(rub_resalt) + '\n' \
+                     '🇺🇦 ' + str(uah_resalt) + '\n' \
+                     '🇵🇱 ' + str(pln_resalt)
+
+        if usd_res_1 is not None\
+                or usd_res_2 is not None\
+                or eur_res_1 is not None\
+                or eur_res_2 is not None\
+                or rub_res_1 is not None\
+                or rub_res_2 is not None\
+                or uah_res_1 is not None\
+                or uah_res_2 is not None\
+                or pln_res_1 is not None\
+                or pln_res_2 is not None:
+            if res_nam:
+                return msg_resalt
+            else:
+                return False
+
+    except UnboundLocalError:
+        return '<b>Сделайте правильный запрос :)</b>\n'
