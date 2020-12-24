@@ -1,9 +1,9 @@
 from PIL import Image, ImageFont, ImageDraw
 import pathlib
-from echo.nbrb.stavki_oper.stavki_nb_oper import *
+#from echo.nbrb.stavki_oper.stavki_nb_oper import *
 import pymysql as pm
 import echo.config as cf
-
+import datetime as dt
 
 def get_sr():
 
